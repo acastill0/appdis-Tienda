@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<h1>Crear Persona</h1>
+
+	<h:form>
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Cédula" for="cedula" />
+			<h:inputText value="#{personaController.p.cedula}" id="cedula" />
+			<h:message for="cedula" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Nombre" for="nombre" />
+			<h:inputText value="#{personaController.p.nombre}" id="nombre" />
+			<h:message for="nombre" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Cargo" for="cargo" />
+			<h:inputText value="#{personaController.p.cargo}" id="cargo" />
+			<h:message for="cargo" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Teléfono" for="telefono" />
+			<h:inputText value="#{personaController.p.telefono}" id="telefono" />
+			<h:message for="telefono" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Dirección" for="direccion" />
+			<h:inputText value="#{personaController.p.direccion}" id="direccion" />
+			<h:message for="direccion" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Correo" for="correo" />
+			<h:inputText value="#{personaController.p.correo}" id="correo" />
+			<h:message for="correo" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Contraseña" for="password" />
+			<h:inputText value="#{personaController.p.password}" id="password" />
+			<h:message for="password" />
+		</h:panelGrid>
+
+		<h:dataTable>
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:inputText value="" />
+			</h:column>
+		</h:dataTable>
+		<h:commandButton action="#{personaController.guardar()}"
+			value="Guardar" />
+	</h:form>
+</body>
+</html>
