@@ -5,16 +5,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Pelicula {
 
 	@Id
 	@GeneratedValue( strategy=GenerationType.AUTO )
 	private int id;
+	@NotEmpty
 	private String titulo;
+	@NotEmpty
 	private String imagen;
+	@NotEmpty
 	private int votacion;
+	@NotEmpty
 	private double precio;
+	@NotEmpty
 	private int cantidad;
 
 	public int getId() {

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import modelo.Categoria;
+import modelo.Pelicula;
 
 @Stateless
 public class CategoriaDAO {
@@ -33,10 +35,17 @@ public class CategoriaDAO {
 		return c;
 	}
 
-	public List<Categoria> ListadoPeliculas() {
-		String jpql = "SELECT p FROM Pelicula p";
+	public List<Categoria> listadoCategorias() {
+		String jpql = "SELECT c FROM Categoria c";
 		Query q = em.createQuery(jpql, Categoria.class);
 		List<Categoria> categorias = q.getResultList();
 		return categorias;
+	}
+
+	public List<Categoria> listadoCategoriaBuscado(int id) {
+		Categoria cb = buscar(id);
+		List<Categoria> categoriaB = new ArrayList<Categoria>();
+		categoriaB.add(cb);
+		return categoriaB;
 	}
 }

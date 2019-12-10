@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+
+	<center>
+		<h1>Actualizar Categoría</h1>
+	</center>
+
+	<h:form>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Id" for="id" />
+			<h:inputText value="#{categoriaController.c.id}" id="id" />
+			<h:message for="id" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Nombre" for="nombre" />
+			<h:inputText value="#{categoriaController.c.nombre}" id="nombre" />
+			<h:message for="nombre" />
+		</h:panelGrid>
+		<div>
+			<h:commandButton action="#{categoriaController.buscar()}"
+				value="Buscar" />
+			<h:commandButton action="#{categoriaController.actualizar()}"
+				value="Actualizar" />
+		</div>
+	</h:form>
+
+</body>
+</html>
