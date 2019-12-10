@@ -6,41 +6,39 @@
 
 <h:head></h:head>
 <body>
-	<h1>Crear Pelicula</h1>
-	<h:form>
-		<h:panelGrid>
-			<h:outputLabel value="ID" for="id" />
-			<h:inputText value="#{peliculaController.p.id}" />
-			<h:message for="id" />
-		</h:panelGrid>
 
-		<h:panelGrid>
-			<h:outputLabel value="Título" for="titulo" />
-			<h:inputText value="#{peliculaController.p.titulo}" />
+	<center>
+		<h1>Crear Pelicula</h1>
+	</center>
+
+	<h:form>
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Titulo" for="titulo" />
+			<h:inputText value="#{peliculaController.p.titulo}" id="titulo" />
 			<h:message for="titulo" />
 		</h:panelGrid>
 
-		<h:panelGrid>
+		<h:panelGrid columns="3">
 			<h:outputLabel value="Imágen" for="imagen" />
-			<h:inputText value="#{peliculaController.p.imagen}" />
-			<h:message for="imagen" />
+			<h:inputText value="#{peliculaController.p.imagen}" id="imagen" />
+			<h:message for="iamgen" />
 		</h:panelGrid>
 
-		<h:panelGrid>
-			<h:outputLabel value="Votación" for="votacion" />
-			<h:inputText value="#{peliculaController.p.votacion}" />
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Vatación" for="votacion" />
+			<h:inputText value="#{peliculaController.p.votacion}" id="votacion" />
 			<h:message for="votacion" />
 		</h:panelGrid>
 
-		<h:panelGrid>
+		<h:panelGrid columns="3">
 			<h:outputLabel value="Precio" for="precio" />
-			<h:inputText value="#{peliculaController.p.precio}" />
+			<h:inputText value="#{peliculaController.p.precio}" id="precio" />
 			<h:message for="precio" />
 		</h:panelGrid>
 
-		<h:panelGrid>
+		<h:panelGrid columns="3">
 			<h:outputLabel value="Cantidad" for="cantidad" />
-			<h:inputText value="#{peliculaController.p.cantidad}" />
+			<h:inputText value="#{peliculaController.p.cantidad}" id="cantidad" />
 			<h:message for="cantidad" />
 		</h:panelGrid>
 
@@ -48,5 +46,6 @@
 			value="Guardar" />
 
 	</h:form>
+
 </body>
 </html>

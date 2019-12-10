@@ -9,35 +9,28 @@ import modelo.Categoria;
 
 @ManagedBean
 public class CategoriaController {
-	
 	@Inject
-	private Categoria c ;
+	private Categoria c;
 
 	@Inject
-	private CategoriaDAO cdao;
+	private CategoriaDAO cd;
 
 	@PostConstruct
 	public void init() {
 		c = new Categoria();
 	}
-	
-	
 
 	public Categoria getC() {
 		return c;
 	}
 
-
-
 	public void setC(Categoria c) {
 		this.c = c;
 	}
 
-
-
 	public String guardarCat() {
 		System.out.println("Categoria: " + c.toString());
-		cdao.insertar(c);
+		cd.insertar(c);
 		return null;
 	}
 }

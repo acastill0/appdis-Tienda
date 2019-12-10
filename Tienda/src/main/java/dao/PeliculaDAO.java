@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import modelo.Pelicula;
-import modelo.Usuario;
 
 @Stateless
 public class PeliculaDAO {
@@ -28,17 +28,23 @@ public class PeliculaDAO {
 		em.remove(buscar(id));
 	}
 
-	public Usuario buscar(int id) {
-		Usuario p;
-		p = em.find(Usuario.class, id);
+	public Pelicula buscar(int id) {
+		Pelicula p;
+		p = em.find(Pelicula.class, id);
 		return p;
 	}
 
-	public List<Pelicula> ListadoPersonas() {
+	public List<Pelicula> ListadoPeliculas() {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
 		List<Pelicula> peliculas = q.getResultList();
 		return peliculas;
 	}
 
+	public List<Pelicula> listadoPeliculaBuscado(int id) {
+		Pelicula pb = buscar(id);
+		List<Pelicula> peliculaB = new ArrayList<Pelicula>();
+		peliculaB.add(pb);
+		return peliculaB;
+	}
 }

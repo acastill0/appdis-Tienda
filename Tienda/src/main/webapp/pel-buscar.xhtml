@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<center>
+		<h1>Buscar Pelicula</h1>
+	</center>
+	<h:form>
+		<div>
+			<h:outputLabel value="Id" for="id" />
+			<h:inputText value="#{peliculaController.p.id}" id="id" />
+			<h:message for="id" />
+			<h:commandButton action="#{peliculaController.listadoBuscado()}"
+				value="Buscar" />
+		</div>
+	</h:form>
+	<div>
+		<h:dataTable value="#{peliculaController.peliculas}" var="p">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				#{p.id}
+			</h:column>
+			<h:column>
+				<f:facet name="header">TITULO</f:facet>
+				#{p.titulo}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">VOTACION</f:facet>
+				#{p.votacion}
+			</h:column>
+			<h:column>
+				<f:facet name="header">PRECIO</f:facet>
+				#{p.precio}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">CANTIDAD</f:facet>
+				#{p.cantidad}
+			</h:column>
+		</h:dataTable>
+
+	</div>
+</body>
+</html>
