@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<h1>Crear Pelicula</h1>
+	<h:form>
+		<h:panelGrid>
+			<h:outputLabel value="ID" for="id" />
+			<h:inputText value="#{peliculaController.p.id}" />
+			<h:message for="id" />
+		</h:panelGrid>
+
+		<h:panelGrid>
+			<h:outputLabel value="Título" for="titulo" />
+			<h:inputText value="#{peliculaController.p.titulo}" />
+			<h:message for="titulo" />
+		</h:panelGrid>
+
+		<h:panelGrid>
+			<h:outputLabel value="Imágen" for="imagen" />
+			<h:inputText value="#{peliculaController.p.imagen}" />
+			<h:message for="imagen" />
+		</h:panelGrid>
+
+		<h:panelGrid>
+			<h:outputLabel value="Votación" for="votacion" />
+			<h:inputText value="#{peliculaController.p.votacion}" />
+			<h:message for="votacion" />
+		</h:panelGrid>
+
+		<h:panelGrid>
+			<h:outputLabel value="Precio" for="precio" />
+			<h:inputText value="#{peliculaController.p.precio}" />
+			<h:message for="precio" />
+		</h:panelGrid>
+
+		<h:panelGrid>
+			<h:outputLabel value="Cantidad" for="cantidad" />
+			<h:inputText value="#{peliculaController.p.cantidad}" />
+			<h:message for="cantidad" />
+		</h:panelGrid>
+
+		<h:commandButton action="#{peliculaController.guardar()}"
+			value="Guardar" />
+
+	</h:form>
+</body>
+</html>

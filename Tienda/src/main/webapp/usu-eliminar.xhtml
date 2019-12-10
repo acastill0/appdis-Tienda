@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<center>
+		<h1>Eliminar Usuario</h1>
+	</center>
+	<h:form>
+		<div>
+			<h:outputLabel value="Cédula" for="cedula" />
+			<h:inputText value="#{usuarioController.u.cedula}" id="cedula" />
+			<h:message for="cedula" />
+			<h:commandButton action="#{usuarioController.listadoBuscado()}"
+				value="Buscar" />
+		</div>
+
+		<div>
+			<h:dataTable value="#{usuarioController.usuarios}" var="u">
+				<h:column>
+					<f:facet name="header">CEDULA</f:facet>
+				#{u.cedula}
+			</h:column>
+				<h:column>
+					<f:facet name="header">NOMBRE</f:facet>
+				#{u.nombre}
+			</h:column>
+
+				<h:column>
+					<f:facet name="header">APELLIDO</f:facet>
+				#{u.apellido}
+			</h:column>
+
+				<h:column>
+					<f:facet name="header">TELEFONO</f:facet>
+				#{u.telefono}
+			</h:column>
+
+				<h:column>
+					<f:facet name="header">CORREO</f:facet>
+				#{u.correo}
+			</h:column>
+
+				<h:column>
+					<h:commandButton action="#{usuarioController.borrar(u.cedula)}"
+						value="Eliminar" />
+				</h:column>
+
+			</h:dataTable>
+
+		</div>
+	</h:form>
+
+</body>
+</html>

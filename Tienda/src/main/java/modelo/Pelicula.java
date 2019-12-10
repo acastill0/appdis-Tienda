@@ -12,14 +12,11 @@ public class Pelicula {
 
 	@Id
 	private int id;
-	@NotEmpty
 	private String titulo;
-	@NotEmpty
+	
 	private String imagen;
 	private int votacion;
-	@NotEmpty
 	private double precio;
-	@NotEmpty
 	private int cantidad;
 
 	public int getId() {
