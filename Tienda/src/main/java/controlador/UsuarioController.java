@@ -61,6 +61,7 @@ public class UsuarioController {
 	}
 
 	public String actualizar() {
+		
 		g.actualizar(u);
 		//g.actulizarUsu(u);
 		listado();
@@ -70,6 +71,7 @@ public class UsuarioController {
 
 	public String borrar(String cedula) {
 		g.borrar(cedula);
+		System.out.println(cedula);
 		//g.eliminarUsu(cedula);
 		listado();
 		return null;

@@ -33,6 +33,7 @@ public class GestionTiendaON {
 
 	public boolean eliminarUsu(String cedula) {
 		boolean aux = false;
+		
 		Usuario u = buscarUsu(cedula);
 		if (u.getCedula() != (null)) {
 			ud.borrar(cedula);

@@ -34,6 +34,7 @@ public class InicioSesionController {
 	}
 
 	public String login() {
+
 		Boolean aux = ud.logueado(correo, pass);
 		if (aux) {
 			FacesContext context = FacesContext.getCurrentInstance();
