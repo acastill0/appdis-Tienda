@@ -3,6 +3,8 @@ package modelo;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.Email;
+
 @Entity
 public class Usuario {
 
@@ -11,6 +13,7 @@ public class Usuario {
 	private String nombre;
 	private String apellido;
 	private String telefono;
+	@Email
 	private String correo;
 	private String password;
 	private boolean admin;

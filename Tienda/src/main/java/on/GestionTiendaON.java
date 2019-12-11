@@ -41,7 +41,7 @@ public class GestionTiendaON {
 		return aux;
 	}
 
-	public List<Usuario> listadoUsus() {
+	public List<Usuario> listadoUsuarios() {
 		return ud.listadoUsuarios();
 	}
 	

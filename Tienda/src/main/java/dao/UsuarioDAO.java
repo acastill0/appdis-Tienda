@@ -47,4 +47,17 @@ public class UsuarioDAO {
 		usuariosB.add(ub);
 		return usuariosB;
 	}
+
+	public boolean logueado(String correo, String pass) {
+		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p";
+		Query q = em.createQuery(jpql, Usuario.class);
+		q.setParameter("c", correo);
+		q.setParameter("p", pass);
+		try {
+			Usuario u = (Usuario) q.getSingleResult();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }
