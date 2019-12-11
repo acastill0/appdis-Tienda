@@ -49,6 +49,12 @@ public class InicioSesionController {
 		}
 	}
 
+	public String logout() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().invalidateSession();
+		return "login";
+	}
+
 	public void limpiar() {
 		correo = "";
 		pass = "";
