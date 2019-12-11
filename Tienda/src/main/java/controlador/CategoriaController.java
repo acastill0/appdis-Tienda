@@ -12,8 +12,6 @@ import dao.CategoriaDAO;
 import modelo.Categoria;
 
 @ManagedBean
-@SessionScoped
-
 public class CategoriaController {
 
 	@Inject

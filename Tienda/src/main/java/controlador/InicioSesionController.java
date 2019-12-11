@@ -40,7 +40,7 @@ public class InicioSesionController {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.getExternalContext().getSessionMap().put("user", correo);
 			limpiar();
-			return "inicio";
+			return "main";
 		} else {
 			FacesMessage fmss = new FacesMessage("Error", "Error de inicio de sesión");
 			FacesContext.getCurrentInstance().addMessage(null, fmss);

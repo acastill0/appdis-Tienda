@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>ADRILU</title>
+<meta charset="utf-8" />
+
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link href="resources/layout/styles/layout.css" rel="stylesheet"
+	type="text/css" media="all" />
+</head>
+<body id="top">
+	<div class="wrapper row0">
+		<H1>ACME</H1>
+	</div>
+
+	<div class="wrapper row3">
+		<div class="hoc container clear">
+
+
+			<div class="sectiontitle">
+
+				<div class="wrapper row4">
+					<h6 class="heading">
+						<ui:insert name="titulo">Titulo Página</ui:insert>
+					</h6>
+					<footer id="footer" class="hoc clear">
+						<div class="one_third">
+							<form method="post" action="#">
+								<fieldset>
+									<legend>Newsletter:</legend>
+									<ui:insert name="formulario">
+									</ui:insert>
+								</fieldset>
+							</form>
+						</div>
+					</footer>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div class="wrapper row5">
+		<div id="copyright" class="hoc clear">
+			<p class="fl_left">
+				Universidad Politécnica Salesiana (Cuenca, Ecuador) - Desarrollado
+				por Lucy Garay, Adriana Castillo - <a href="#">ACME</a>
+			</p>
+		</div>
+	</div>
+	<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+	<!-- JAVASCRIPTS -->
+	<script src="resources/layout/scripts/jquery.min.js"></script>
+	<script src="resources/layout/scripts/jquery.backtotop.js"></script>
+	<script src="resources/layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>

@@ -4,20 +4,30 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
-	<h:form>
-<!-- <<<<<<< HEAD -->
-	
-		<h:outputLabel value="Correo" for="correo" />
-		<h:inputText value="#{inicioSesionController.correo}" id="correo" />
 
-		<h:outputLabel value="Contraseña" for="password" />
-		<h:inputSecret value="#{inicioSesionController.pass}" id="password" />
+<ui:composition template="/plantilla.xhtml">
+	<ui:define name="titulo">Iniciar Sesión</ui:define>
+	<ui:define name="formulario">
+		<h:form>
+			<center>
+				<h:outputLabel value="Correo" for="correo" />
+			</center>
+			<h:inputText value="#{inicioSesionController.correo}" id="correo" />
+			<center>
+				<h:outputLabel value="Contraseña" for="password" />
+			</center>
+			<h:inputSecret value="#{inicioSesionController.pass}" id="password" />
+			<center>
+				<div>
 
-		<h:commandButton action="#{inicioSesionController.login()}"
-			value="Ingresar" />
-	</h:form>
-
-</body>
+					<a> </a>
+					<center>
+						<h:commandButton action="#{inicioSesionController.login()}"
+							value="Ingresar" class="btn" />
+					</center>
+				</div>
+			</center>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

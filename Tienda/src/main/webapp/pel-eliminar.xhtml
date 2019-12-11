@@ -45,7 +45,15 @@
 					<h:column>
 						<f:facet name="header">CANTIDAD</f:facet>
 				#{p.cantidad}
-			</h:column>
+	
+					</h:column>
+					<h:column>
+						<f:facet name="header">IMAGEN</f:facet>
+						<center>
+							<h:graphicImage value="#{p.imagen}" id="imagen" width="200px" height="200px" />
+						</center>
+
+					</h:column>
 
 					<h:column>
 						<center>

@@ -12,7 +12,6 @@ import modelo.Categoria;
 import modelo.Pelicula;
 
 @ManagedBean
-@SessionScoped
 public class PeliculaController {
 
 	@Inject
@@ -68,17 +67,24 @@ public class PeliculaController {
 	public String borrar(int id) {
 		g.borrar(id);
 		listado();
+		limpiar();
 		return null;
 	}
 
 	public String listado() {
 		peliculas = g.ListadoPeliculas();
+		limpiar();
 		return null;
 	}
 
 	public String listadoBuscado() {
-		peliculas = g.listadoPeliculaBuscado(p.getId());
-		return null;
+		try {
+			peliculas = g.listadoPeliculaBuscado(p.getId());
+		} catch (Exception e) {
+			listado();
+		}
+		limpiar();
+		return "pel-buscar";
 	}
 
 	public String limpiar() {

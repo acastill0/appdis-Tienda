@@ -12,7 +12,7 @@
 			<h:panelGrid columns="4">
 				<h:outputLabel value="Id" for="id" />
 				<h:inputText value="#{peliculaController.p.id}" id="id"
-					class="two_quarter" />
+					class="three_quarter"/>
 				<h:message for="id" />
 
 				<h:commandButton action="#{peliculaController.listadoBuscado()}"
@@ -43,7 +43,14 @@
 				<h:column>
 					<f:facet name="header">CANTIDAD</f:facet>
 				#{p.cantidad}
-			</h:column>
+				</h:column>
+				<h:column>
+					<f:facet name="header">IMAGEN</f:facet>
+					<center>
+						<h:graphicImage value="#{p.imagen}" id="imagen" width="70px" height="90px"/>
+					</center>
+
+				</h:column>
 			</h:dataTable>
 
 		</div>
