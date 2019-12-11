@@ -1,23 +1,29 @@
 package modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.Email;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Pelicula {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String titulo;
-	
 	private String imagen;
 	private int votacion;
 	private double precio;
 	private int cantidad;
+
+	@ManyToOne
+	@JoinColumn(name = "categoria")
+	private Categoria categoria;
 
 	public int getId() {
 		return id;
@@ -67,10 +73,18 @@ public class Pelicula {
 		this.cantidad = cantidad;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
-				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
 	}
 
 }
