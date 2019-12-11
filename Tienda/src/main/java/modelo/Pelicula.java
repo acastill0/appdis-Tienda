@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -11,18 +13,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Pelicula {
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@NotEmpty
 	private String titulo;
-	@NotEmpty
 	private String imagen;
-	@NotEmpty
 	private int votacion;
-	@NotEmpty
 	private double precio;
-	@NotEmpty
 	private int cantidad;
+
+	@ManyToOne
+	@JoinColumn(name = "categoria")
+	private Categoria categoria;
 
 	public int getId() {
 		return id;
@@ -72,10 +73,18 @@ public class Pelicula {
 		this.cantidad = cantidad;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
-				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
 	}
 
 }

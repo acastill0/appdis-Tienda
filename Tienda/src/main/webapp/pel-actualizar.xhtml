@@ -4,59 +4,77 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
+<ui:composition template="/index.xhtml">
+	<ui:define name="titulo">Actualizar Película</ui:define>
 
-	<center>
-		<h1>Actualizar Pelicula</h1>
-	</center>
+	<ui:define name="formulario">
+		<h:form>
+			<div class="testimonial">
 
-	<h:form>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Categoría" for="categoria" />
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Id" for="id" />
-			<h:inputText value="#{peliculaController.p.id}" id="id" />
-			<h:message for="id" />
-		</h:panelGrid>
+					<h:selectOneMenu value="#{peliculaController.p.categoria.id}">
+						<f:selectItems
+							value="#{categoriaController.listaCategoriaPelicula()}"></f:selectItems>
+					</h:selectOneMenu>
+					<h:message for="categoria" />
+				</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Titulo" for="titulo" />
-			<h:inputText value="#{peliculaController.p.titulo}" id="titulo" />
-			<h:message for="titulo" />
-		</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Id" for="id" />
+					<h:inputText value="#{peliculaController.p.id}" id="id"
+						class="two_quarter" />
+					<h:message for="id" />
+				</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Imágen" for="imagen" />
-			<h:inputText value="#{peliculaController.p.imagen}" id="imagen" />
-			<h:message for="iamgen" />
-		</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Titulo" for="titulo" />
+					<h:inputText value="#{peliculaController.p.titulo}" id="titulo"
+						class="two_quarter" />
+					<h:message for="titulo" />
+				</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Vatación" for="votacion" />
-			<h:inputText value="#{peliculaController.p.votacion}" id="votacion" />
-			<h:message for="votacion" />
-		</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Imágen" for="imagen" />
+					<h:inputText value="#{peliculaController.p.imagen}" id="imagen"
+						class="two_quarter" />
+					<h:message for="iamgen" />
+				</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Precio" for="precio" />
-			<h:inputText value="#{peliculaController.p.precio}" id="precio" />
-			<h:message for="precio" />
-		</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Vatación" for="votacion" />
+					<h:inputText value="#{peliculaController.p.votacion}" id="votacion"
+						class="two_quarter" />
+					<h:message for="votacion" />
+				</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Cantidad" for="cantidad" />
-			<h:inputText value="#{peliculaController.p.cantidad}" id="cantidad" />
-			<h:message for="cantidad" />
-		</h:panelGrid>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Precio" for="precio" />
+					<h:inputText value="#{peliculaController.p.precio}" id="precio"
+						class="two_quarter" />
+					<h:message for="precio" />
+				</h:panelGrid>
 
-		<div>
-			<h:commandButton action="#{peliculaController.buscar()}"
-				value="Buscar" />
-			<h:commandButton action="#{peliculaController.actualizar()}"
-				value="Actualizar" />
-		</div>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Cantidad" for="cantidad" />
+					<h:inputText value="#{peliculaController.p.cantidad}" id="cantidad"
+						class="two_quarter" />
+					<h:message for="cantidad" />
+				</h:panelGrid>
 
-	</h:form>
+				<center>
+					<div>
+						<h:commandButton action="#{peliculaController.buscar()}"
+							value="Buscar" class="btn" />
 
-</body>
+						<h:commandButton action="#{peliculaController.actualizar()}"
+							value="Actualizar" class="btn" />
+					</div>
+				</center>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

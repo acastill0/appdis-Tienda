@@ -4,55 +4,60 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
-	<center>
-		<h1>Eliminar Pelicula</h1>
-	</center>
-	<h:form>
-		<div>
-			<h:outputLabel value="Id" for="id" />
-			<h:inputText value="#{peliculaController.p.id}" id="id" />
-			<h:message for="id" />
-			<h:commandButton action="#{peliculaController.listadoBuscado()}"
-				value="Buscar" />
-		</div>
+<ui:composition template="/index.xhtml">
+	<ui:define name="titulo">Eliminar Película</ui:define>
+	<ui:define name="formulario">
+		<h:form>
+			<div>
+				<h:panelGrid columns="4">
 
-		<div>
-			<h:dataTable value="#{peliculaController.peliculas}" var="p">
-				<h:column>
-					<f:facet name="header">ID</f:facet>
+					<h:outputLabel value="Id" for="id" />
+					<h:inputText value="#{peliculaController.p.id}" id="id"
+						class="two_quarter" />
+					<h:message for="id" />
+					<h:commandButton action="#{peliculaController.listadoBuscado()}"
+						value="Buscar" class="btn" />
+				</h:panelGrid>
+
+			</div>
+
+			<div>
+				<h:dataTable value="#{peliculaController.peliculas}" var="p">
+					<h:column>
+						<f:facet name="header">ID</f:facet>
 				#{p.id}
 			</h:column>
-				<h:column>
-					<f:facet name="header">TITULO</f:facet>
+					<h:column>
+						<f:facet name="header">TITULO</f:facet>
 				#{p.titulo}
 			</h:column>
 
-				<h:column>
-					<f:facet name="header">VOTOS</f:facet>
+					<h:column>
+						<f:facet name="header">VOTOS</f:facet>
 				#{p.votacion}
 			</h:column>
 
-				<h:column>
-					<f:facet name="header">PRECIO</f:facet>
+					<h:column>
+						<f:facet name="header">PRECIO</f:facet>
 				#{p.precio}
 			</h:column>
 
-				<h:column>
-					<f:facet name="header">CANTIDAD</f:facet>
+					<h:column>
+						<f:facet name="header">CANTIDAD</f:facet>
 				#{p.cantidad}
 			</h:column>
 
-				<h:column>
-					<h:commandButton action="#{peliculaController.borrar(p.id)}"
-						value="Eliminar" />
-				</h:column>
+					<h:column>
+						<center>
+							<h:commandButton action="#{peliculaController.borrar(p.id)}"
+								value="Eliminar" class="btn" />
+						</center>
+					</h:column>
 
-			</h:dataTable>
+				</h:dataTable>
 
-		</div>
-	</h:form>
-
-</body>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

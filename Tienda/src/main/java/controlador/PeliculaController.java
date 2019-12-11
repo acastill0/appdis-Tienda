@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
 import dao.PeliculaDAO;
+import modelo.Categoria;
 import modelo.Pelicula;
 
 @ManagedBean
+@SessionScoped
 public class PeliculaController {
 
 	@Inject
@@ -21,6 +24,7 @@ public class PeliculaController {
 	@PostConstruct
 	public void init() {
 		p = new Pelicula();
+		p.setCategoria(new Categoria());
 		peliculas = g.ListadoPeliculas();
 	}
 
@@ -62,7 +66,6 @@ public class PeliculaController {
 	}
 
 	public String borrar(int id) {
-		System.out.println("ID: " + id);
 		g.borrar(id);
 		listado();
 		return null;

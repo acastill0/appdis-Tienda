@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<h:form>
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Correo" for="correo" />
+			<h:inputText value="#{usuarioController.u.correo}" id="correo"
+				placeholder="Correo" />
+			<h:message for="correo" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Contraseña" for="pass" />
+			<h:inputSecret value="#{usuarioController.u.password}" id="pass"
+				placeholder="Contraseña" />
+			<h:message for="pass" />
+		</h:panelGrid>
+
+		<h:commandButton action="#{usuarioController.sesion()}"
+			value="Ingresar" />
+	</h:form>
+
+</body>
+</html>

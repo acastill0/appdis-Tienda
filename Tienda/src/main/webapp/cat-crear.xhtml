@@ -4,24 +4,23 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
+<ui:composition template="/index.xhtml">
+	<ui:define name="titulo">Crear Categoría</ui:define>
 
-	<center>
-		<h1>Crear Categoría</h1>
-	</center>
+	<ui:define name="formulario">
+		<h:form>
+			<h:panelGrid columns="4">
+				<h:outputLabel value="Nombre" for="nombre" />
+				<h:inputText value="#{categoriaController.c.nombre}" id="nombre"
+					class="two_quarter" />
+				<h:message for="nombre" />
+			</h:panelGrid>
+			<center>
+				<h:commandButton action="#{categoriaController.guardar()}"
+					value="Guardar" class="btn" />
+			</center>
 
-	<h:form>
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Nombre" for="nombre" />
-			<h:inputText value="#{categoriaController.c.nombre}" id="nombre" />
-			<h:message for="nombre" />
-		</h:panelGrid>
-
-		<h:commandButton action="#{categoriaController.guardar()}"
-			value="Guardar" />
-
-	</h:form>
-
-</body>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

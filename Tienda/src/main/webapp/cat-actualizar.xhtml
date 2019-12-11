@@ -4,33 +4,35 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
+<ui:composition template="/index.xhtml">
+	<ui:define name="titulo">Actualizar Categoría</ui:define>
 
-	<center>
-		<h1>Actualizar Categoría</h1>
-	</center>
+	<ui:define name="formulario">
+		<h:form>
 
-	<h:form>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Id" for="id" />
+				<h:inputText value="#{categoriaController.c.id}" id="id" class="two_quarter" />
+				<h:message for="id" />
+			</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Id" for="id" />
-			<h:inputText value="#{categoriaController.c.id}" id="id" />
-			<h:message for="id" />
-		</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Nombre" for="nombre" />
+				<h:inputText value="#{categoriaController.c.nombre}" id="nombre" class="two_quarter"/>
+				<h:message for="nombre" />
+			</h:panelGrid>
+			<center>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Nombre" for="nombre" />
-			<h:inputText value="#{categoriaController.c.nombre}" id="nombre" />
-			<h:message for="nombre" />
-		</h:panelGrid>
-		<div>
-			<h:commandButton action="#{categoriaController.buscar()}"
-				value="Buscar" />
-			<h:commandButton action="#{categoriaController.actualizar()}"
-				value="Actualizar" />
-		</div>
-	</h:form>
+				<div>
+					<h:commandButton action="#{categoriaController.buscar()}"
+						value="Buscar" class="btn" />
+					<h:commandButton action="#{categoriaController.actualizar()}"
+						value="Actualizar" class="btn" />
+				</div>
+			</center>
 
-</body>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
 </html>

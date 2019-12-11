@@ -16,13 +16,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Categoria {
 
 	@Id
-	@GeneratedValue( strategy=GenerationType.AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	//@NotEmpty
 	private String nombre;
 
 	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "pelicula", referencedColumnName = "id")
+	@JoinColumn(name = "categoria")
 	private List<Pelicula> peliculas;
 
 	public int getId() {
@@ -53,4 +52,5 @@ public class Categoria {
 	public String toString() {
 		return "Categoria [id=" + id + ", nombre=" + nombre + ", peliculas=" + peliculas + "]";
 	}
+
 }

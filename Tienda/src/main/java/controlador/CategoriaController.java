@@ -1,15 +1,19 @@
 package controlador;
 
+import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
 import dao.CategoriaDAO;
 import modelo.Categoria;
 
 @ManagedBean
+@SessionScoped
+
 public class CategoriaController {
 
 	@Inject
@@ -17,6 +21,7 @@ public class CategoriaController {
 
 	private Categoria c;
 	private List<Categoria> categorias;
+	private Map<String, Object> categoriasProducto;
 
 	@PostConstruct
 	public void init() {
@@ -38,6 +43,14 @@ public class CategoriaController {
 
 	public void setC(Categoria c) {
 		this.c = c;
+	}
+
+	public Map<String, Object> getCategoriasProducto() {
+		return categoriasProducto;
+	}
+
+	public void setCategoriasProducto(Map<String, Object> categoriasProducto) {
+		this.categoriasProducto = categoriasProducto;
 	}
 
 	public String guardar() {
@@ -81,5 +94,21 @@ public class CategoriaController {
 		c.setId(0);
 		c.setNombre("");
 		return null;
+	}
+
+	public void loadCategoria() {
+		c = new Categoria();
+		c.getId();
+		categorias = g.listadoCategorias();
+
+	}
+
+	public Map<String, Object> listaCategoriaPelicula() {
+		categoriasProducto = new LinkedHashMap<String, Object>();
+		loadCategoria();
+		for (Categoria c : categorias) {
+			categoriasProducto.put(c.getNombre(), c.getId());
+		}
+		return categoriasProducto;
 	}
 }
