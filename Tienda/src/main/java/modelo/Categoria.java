@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 public class Categoria implements Serializable{
 
@@ -26,7 +24,7 @@ public class Categoria implements Serializable{
 	private int id;
 	private String nombre;
 
-	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.LAZY)
 	@JoinColumn(name = "categoria")
 	private List<Pelicula> peliculas;
 
