@@ -7,6 +7,7 @@
 <h:head></h:head>
 <body>
 	<h:form>
+<<<<<<< HEAD
 	
 		<h:outputLabel value="Correo" for="correo" />
 		<h:inputText value="#{inicioSesionController.correo}" id="correo" />
@@ -17,6 +18,24 @@
 		<h:commandButton action="#{inicioSesionController.login()}"
 			value="Ingresar" />
 
+=======
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Correo" for="correo" />
+			<h:inputText value="#{usuarioController.u.correo}" id="correo"
+				placeholder="Correo" />
+			<h:message for="correo" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Contraseña" for="pass" />
+			<h:inputSecret value="#{usuarioController.u.password}" id="pass"
+				placeholder="Contraseña" />
+			<h:message for="pass" />
+		</h:panelGrid>
+
+		<h:commandButton action="#{usuarioController.sesion()}"
+			value="Ingresar" />
+>>>>>>> branch 'adriana-branch' of https://github.com/acastill0/appdis-Tienda.git
 	</h:form>
 
 </body>
