@@ -39,8 +39,9 @@
 
 				<h:panelGrid columns="3">
 					<h:outputLabel value="Imágen" for="imagen" />
-					<h:graphicImage value="#{peliculaController.p.imagen}" id="imagen" />
-					<h:message for="iamgen" />
+<!-- 					<h:graphicImage value="#{peliculaController.p.imagen}" id="imagen" /> -->
+					<h:inputText value="#{peliculaController.p.imagen}" id="imagen" />
+						<h:message for="iamgen" />
 				</h:panelGrid>
 
 				<h:panelGrid columns="3">

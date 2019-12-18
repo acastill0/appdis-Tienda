@@ -2,11 +2,13 @@ package on;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import dao.CategoriaDAO;
 import dao.PeliculaDAO;
 import dao.UsuarioDAO;
 import modelo.Usuario;
-
+@Stateless
 public class GestionTiendaON {
 
 	UsuarioDAO ud = new UsuarioDAO();

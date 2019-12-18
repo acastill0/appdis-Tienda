@@ -14,8 +14,8 @@ import on.GestionTiendaON;
 public class UsuarioController {
 
 	@Inject
-	// private GestionTiendaON g;
-	private UsuarioDAO g;
+	//private GestionTiendaON g;
+	 private UsuarioDAO g;
 
 	private Usuario u;
 	private List<Usuario> usuarios;
@@ -46,7 +46,7 @@ public class UsuarioController {
 		System.out.println(u.toString());
 		u.setAdmin(true);
 		g.insertar(u);
-		// g.crearUsu(u);
+		//g.crearUsu(u);
 		listado();
 		limpiar();
 		return null;
@@ -54,7 +54,7 @@ public class UsuarioController {
 
 	public String buscar() {
 		Usuario ub = g.buscar(u.getCedula());
-		// Usuario ub = g.buscarUsu(u.getCedula());
+		//Usuario ub = g.buscarUsu(u.getCedula());
 		listado();
 		u = ub;
 		return null;
@@ -63,7 +63,7 @@ public class UsuarioController {
 	public String actualizar() {
 
 		g.actualizar(u);
-		// g.actulizarUsu(u);
+		//g.actulizarUsu(u);
 		listado();
 		limpiar();
 		return null;
@@ -72,7 +72,7 @@ public class UsuarioController {
 	public String borrar(String cedula) {
 		g.borrar(cedula);
 		System.out.println(cedula);
-		// g.eliminarUsu(cedula);
+		//g.eliminarUsu(cedula);
 		listado();
 		return null;
 	}
@@ -84,7 +84,8 @@ public class UsuarioController {
 
 	public String listadoBuscado() {
 		usuarios = g.listadoUsuarioBuscado(u.getCedula());
-		if (u.getCedula()==null) {
+		//usuarios = g.listadoUsuBuscado(u.getCedula());
+		if (u.getCedula() == null) {
 			System.out.println("vacio");
 			listado();
 		}

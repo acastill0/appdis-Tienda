@@ -58,6 +58,7 @@ public class PeliculaController {
 	}
 
 	public String actualizar() {
+		System.out.println("ooooo"+p);
 		g.actualizar(p);
 		listado();
 		limpiar();
