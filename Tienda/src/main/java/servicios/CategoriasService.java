@@ -23,14 +23,14 @@ public class CategoriasService {
 	@GET
 	@Path("getCategorias")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Categoria> setCategorias() {
+	public List<Categoria> getCategorias() {
 		return g.listadoCategorias();
 	}
 
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Respuesta setcreateCategoria(Categoria c) {
+	public Respuesta createCategoria(Categoria c) {
 		Respuesta r = new Respuesta();
 		try {
 			g.insertar(c);
