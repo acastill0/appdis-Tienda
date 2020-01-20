@@ -2,16 +2,14 @@ package on;
 
 import java.util.List;
 
-import dao.CategoriaDAO;
-import dao.PeliculaDAO;
+
 import dao.UsuarioDAO;
 import modelo.Usuario;
 
 public class GestionTiendaON {
 
 	UsuarioDAO ud = new UsuarioDAO();
-	CategoriaDAO cd = new CategoriaDAO();
-	PeliculaDAO pd = new PeliculaDAO();
+
 
 	public void crearUsu(Usuario u) {
 		ud.insertar(u);

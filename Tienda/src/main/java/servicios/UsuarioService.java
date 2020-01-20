@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
 import dao.UsuarioDAO;
-import modelo.Categoria;
+
 import modelo.Usuario;
 
 @Path("/usuarios")
