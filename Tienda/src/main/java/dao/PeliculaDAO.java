@@ -38,6 +38,10 @@ public class PeliculaDAO {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
 		List<Pelicula> peliculas = q.getResultList();
+//		for (Pelicula pelicula : peliculas) {
+//			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
+//
+//		}
 		return peliculas;
 	}
 
