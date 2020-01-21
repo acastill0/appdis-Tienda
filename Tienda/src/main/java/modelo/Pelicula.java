@@ -93,5 +93,6 @@ public class Pelicula implements Serializable{
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
 				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
 	}
+	//HOLI
 
 }
