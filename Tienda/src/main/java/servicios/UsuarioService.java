@@ -30,7 +30,7 @@ public class UsuarioService {
 	@Path("setUsuarios")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Respuesta createUsuario(@QueryParam("cedula") String cedula, @QueryParam("nombre") String nombre, @QueryParam("apellidos") String apellidos, @QueryParam("telefono") String telefono, @QueryParam("correo") String correo, @QueryParam("admin") boolean admin, @QueryParam("cliente") boolean cliente) {
+	public Respuesta createUsuario(@QueryParam("cedula") String cedula, @QueryParam("nombre") String nombre, @QueryParam("apellidos") String apellidos, @QueryParam("telefono") String telefono, @QueryParam("correo") String correo,@QueryParam("password") String password) {
 		Respuesta r = new Respuesta();
 		try {
 			Usuario u=new Usuario();
@@ -39,8 +39,9 @@ public class UsuarioService {
 			u.setApellido(apellidos);
 			u.setTelefono(telefono);
 			u.setCorreo(correo);
-			u.setAdmin(admin);
-			u.setCliente(cliente);
+			u.setPassword(password);
+			u.setAdmin(false);
+			u.setCliente(true);
 			on.crearUsu(u);
 			r.setCodigo(0);
 			r.setMensajes("OK");
