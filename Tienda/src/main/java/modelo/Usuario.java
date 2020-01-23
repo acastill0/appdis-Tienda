@@ -1,7 +1,13 @@
 package modelo;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -18,6 +24,10 @@ public class Usuario {
 	private String password;
 	private boolean admin;
 	private boolean cliente;
+	
+	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
+	@JoinColumn(name = "usuario")
+	private List<Carrito> carritos;
 
 	public String getCedula() {
 		return cedula;
@@ -83,9 +93,19 @@ public class Usuario {
 		this.cliente = cliente;
 	}
 
+	public List<Carrito> getCarritos() {
+		return carritos;
+	}
+
+	public void setCarritos(List<Carrito> carritos) {
+		this.carritos = carritos;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono
-				+ ", correo= " + correo + ", password=" + password + ", admin=" + admin + ", cliente=" + cliente + "]";
+				+ ", correo=" + correo + ", password=" + password + ", admin=" + admin + ", cliente=" + cliente
+				+ ", carritos=" + carritos + "]";
 	}
+	
 }

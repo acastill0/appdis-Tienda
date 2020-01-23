@@ -48,8 +48,35 @@ public class UsuarioDAO {
 		return usuariosB;
 	}
 
+	public List<Usuario> ListadoDirecciones() {
+		String jpql = "SELECT d FROM Direccion d";
+		Query q = em.createQuery(jpql, Usuario.class);
+		List<Usuario> direcciones = q.getResultList();
+		return direcciones;
+	}
+	
+	public List<Usuario> ListadoCarritos() {
+		String jpql = "SELECT c FROM Carrito c";
+		Query q = em.createQuery(jpql, Usuario.class);
+		List<Usuario> carritos = q.getResultList();
+		return carritos;
+	}
+
+	public List<Usuario> ListadoTarjetas() {
+		String jpql = "SELECT t FROM Tarjeta t";
+		Query q = em.createQuery(jpql, Usuario.class);
+		List<Usuario> tarjetas = q.getResultList();
+		return tarjetas;
+	}
+
+	public List<Usuario> ListadoVotos() {
+		String jpql = "SELECT v FROM Voto v";
+		Query q = em.createQuery(jpql, Usuario.class);
+		List<Usuario> votos = q.getResultList();
+		return votos;
+	}
+
 	public boolean logueado(String correo, String pass) {
-		
 		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p";
 		Query q = em.createQuery(jpql, Usuario.class);
 		q.setParameter("c", correo);
