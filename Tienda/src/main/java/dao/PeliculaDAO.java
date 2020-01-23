@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import modelo.Pelicula;
 
+
 @Stateless
 public class PeliculaDAO {
 
@@ -44,6 +45,14 @@ public class PeliculaDAO {
 //		}
 		return peliculas;
 	}
+	
+	
+
+	 public List<Pelicula>listaPeliculasPopulares(){
+			String jpql="SELECT t  from t Pelicula order by t.votacion";
+			Query query =em.createQuery(jpql, Pelicula.class);
+			return query.getResultList();
+		}
 
 	public List<Pelicula> listadoPeliculaBuscado(int id) {
 		Pelicula pb = buscar(id);

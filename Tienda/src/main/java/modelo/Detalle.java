@@ -22,9 +22,10 @@ public class Detalle {
 	private int id;
 	private int cantidad;
 	private double precio;
-	
-	 @OneToOne(mappedBy =   "detalle")
-	    private Pelicula pelicula;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pelicula_id", referencedColumnName = "id")
+	private Pelicula pelicula;
 
 	public int getId() {
 		return id;
@@ -49,5 +50,20 @@ public class Detalle {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+
+	@Override
+	public String toString() {
+		return "Detalle [id=" + id + ", cantidad=" + cantidad + ", precio=" + precio + ", pelicula=" + pelicula + "]";
+	}
+	
+	
 
 }

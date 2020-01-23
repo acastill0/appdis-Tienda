@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Pelicula implements Serializable{
+@Table(name = "pelicula")
+public class Pelicula implements Serializable {
 
 	/**
 	 * 
@@ -30,13 +32,13 @@ public class Pelicula implements Serializable{
 	private double precio;
 	private int cantidad;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria")
 	private Categoria categoria;
 
-	 @OneToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "detalle_id", referencedColumnName = "id")
-	    private Detalle detalle;
+	@OneToOne(mappedBy = "pelicula")
+	private Detalle detalle;
+
 	public int getId() {
 		return id;
 	}
@@ -92,12 +94,29 @@ public class Pelicula implements Serializable{
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
+	
+
+	public Detalle getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(Detalle detalle) {
+		this.detalle = detalle;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
-				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + ", detalle=" + detalle
+				+ "]";
 	}
-	//HOLI
+
 
 }

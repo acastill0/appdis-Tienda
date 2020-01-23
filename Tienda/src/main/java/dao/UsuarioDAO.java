@@ -47,6 +47,9 @@ public class UsuarioDAO {
 		usuariosB.add(ub);
 		return usuariosB;
 	}
+	
+
+	
 
 
 	public List<Usuario> ListadoDirecciones() {
