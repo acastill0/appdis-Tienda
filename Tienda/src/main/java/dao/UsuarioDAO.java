@@ -48,10 +48,7 @@ public class UsuarioDAO {
 		return usuariosB;
 	}
 
-<<<<<<< HEAD
-	public boolean logueado(String correo, String pass) {
-		
-=======
+
 	public List<Usuario> ListadoDirecciones() {
 		String jpql = "SELECT d FROM Direccion d";
 		Query q = em.createQuery(jpql, Usuario.class);
@@ -81,7 +78,6 @@ public class UsuarioDAO {
 	}
 
 	public boolean logueado(String correo, String pass) {
->>>>>>> branch 'adriana-branch' of https://github.com/acastill0/appdis-Tienda.git
 		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p";
 		Query q = em.createQuery(jpql, Usuario.class);
 		q.setParameter("c", correo);
