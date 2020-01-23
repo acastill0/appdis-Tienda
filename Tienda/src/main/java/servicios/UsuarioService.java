@@ -17,23 +17,25 @@ import on.TiendaON;
 public class UsuarioService {
 	@Inject
 	private TiendaON on;
-	//private UsuarioDAO usuarioDAO;
-	
+	// private UsuarioDAO usuarioDAO;
+
 	@GET
 	@Path("getUsuarios")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> getUsuario() {
 		return on.listadoUsuarios();
 	}
-	
+
 	@GET
 	@Path("setUsuarios")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Respuesta createUsuario(@QueryParam("cedula") String cedula, @QueryParam("nombre") String nombre, @QueryParam("apellidos") String apellidos, @QueryParam("telefono") String telefono, @QueryParam("correo") String correo,@QueryParam("password") String password) {
+	public Respuesta createUsuario(@QueryParam("cedula") String cedula, @QueryParam("nombre") String nombre,
+			@QueryParam("apellidos") String apellidos, @QueryParam("telefono") String telefono,
+			@QueryParam("correo") String correo, @QueryParam("password") String password) {
 		Respuesta r = new Respuesta();
 		try {
-			Usuario u=new Usuario();
+			Usuario u = new Usuario();
 			u.setCedula(cedula);
 			u.setNombre(nombre);
 			u.setApellido(apellidos);
@@ -51,5 +53,28 @@ public class UsuarioService {
 		}
 		return r;
 	}
+
+	@GET
+	@Path("loguinUsu")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public boolean loguinUsuario(@QueryParam("correo") String correo, @QueryParam("password") String password) {
+		boolean res = false;
+		try {
+			res = on.incioSesion(correo, password);
+		} catch (Exception e) {
+			res = false;
+		}
+		return res;
+	}
+	
+	@GET
+	@Path("buscarCliente")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Usuario buscarCliente(@QueryParam("correo") String correo,@QueryParam("pass") String pass) {
+		return on.logueadoUsuario(correo, pass);
+	}
+	
 
 }

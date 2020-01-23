@@ -14,12 +14,17 @@ import dao.CategoriaDAO;
 import dao.PeliculaDAO;
 import modelo.Categoria;
 import modelo.Pelicula;
+import modelo.Producto;
+import on.TiendaON;
 
 @Path("/peliculas")
 public class PeliculasService {
 
 	@Inject
 	private PeliculaDAO g;
+	
+	@Inject
+	private TiendaON t;
 
 	@POST
 	@Produces("application/json")
@@ -42,6 +47,13 @@ public class PeliculasService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Pelicula> getCategorias() {
 		return g.ListadoPeliculas();
+	}
+	
+	@GET
+	@Path("getProductos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Producto> getProductos() {
+		return t.listadoProductos();
 	}
 
 }

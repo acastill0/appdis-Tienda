@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import modelo.Pelicula;
+import modelo.Producto;
 
 @Stateless
 public class PeliculaDAO {
@@ -38,13 +39,36 @@ public class PeliculaDAO {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
 		List<Pelicula> peliculas = q.getResultList();
-//		for (Pelicula pelicula : peliculas) {
-//			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
-//
-//		}
+
+		/*for (Pelicula pelicula : peliculas) {
+			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
+		}*/
 		return peliculas;
 	}
 
+	public List<Producto> ListadoProductos() {
+		String jpql = "SELECT p FROM Pelicula p";
+		Query q = em.createQuery(jpql, Pelicula.class);
+		List<Pelicula> peliculas = q.getResultList();
+		List<Producto> productos = new ArrayList<Producto>();
+		
+		for (Pelicula pel : peliculas) {
+			Producto pro= new Producto();
+			pro.setId(pel.getId());
+			pro.setTitulo(pel.getTitulo());
+			pro.setImagen(pel.getImagen());
+			pro.setCantidad(pel.getCantidad());
+			pro.setCategoria(pel.getCategoria().getNombre());
+			pro.setPrecio(pel.getPrecio());
+			pro.setVotacion(pel.getVotacion());
+			productos.add(pro);
+		}
+
+		/*for (Pelicula pelicula : peliculas) {
+			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
+		}*/
+		return productos;
+	}
 	public List<Pelicula> listadoPeliculaBuscado(int id) {
 		Pelicula pb = buscar(id);
 		List<Pelicula> peliculaB = new ArrayList<Pelicula>();
