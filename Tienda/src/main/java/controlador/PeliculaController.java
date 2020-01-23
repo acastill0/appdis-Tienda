@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import dao.PeliculaDAO;
 import modelo.Categoria;
 import modelo.Pelicula;
+import on.TiendaON;
 
 @ManagedBean
 @SessionScoped
@@ -17,6 +18,9 @@ public class PeliculaController {
 
 	@Inject
 	private PeliculaDAO g;
+
+	@Inject
+	private TiendaON tiendaOn;
 
 	private Pelicula p;
 	private List<Pelicula> peliculas;
@@ -76,6 +80,11 @@ public class PeliculaController {
 		return null;
 	}
 
+	public String listadoVendidos() {
+		peliculas = tiendaOn.listaProductosVendidos();
+		return null;
+	}
+
 	public String listadoBuscado() {
 		peliculas = g.listadoPeliculaBuscado(p.getId());
 		return null;
@@ -90,5 +99,6 @@ public class PeliculaController {
 		p.setCantidad(0);
 		return null;
 	}
+
 }
 //

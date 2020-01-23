@@ -47,6 +47,10 @@ public class UsuarioDAO {
 		usuariosB.add(ub);
 		return usuariosB;
 	}
+	
+
+	
+
 
 	public List<Usuario> ListadoDirecciones() {
 		String jpql = "SELECT d FROM Direccion d";

@@ -5,14 +5,16 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
-
+import dao.UsuarioDAO;
 import modelo.Usuario;
 import on.TiendaON;
-
 @Path("/usuarios")
 public class UsuarioService {
 	@Inject
@@ -45,6 +47,7 @@ public class UsuarioService {
 			u.setAdmin(false);
 			u.setCliente(true);
 			on.crearUsu(u);
+
 			r.setCodigo(0);
 			r.setMensajes("OK");
 		} catch (Exception e) {

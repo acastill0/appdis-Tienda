@@ -10,8 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "detalle")
 public class Detalle {
 
 	@Id
@@ -19,6 +22,10 @@ public class Detalle {
 	private int id;
 	private int cantidad;
 	private double precio;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pelicula_id", referencedColumnName = "id")
+	private Pelicula pelicula;
 
 	public int getId() {
 		return id;
@@ -43,5 +50,20 @@ public class Detalle {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+
+	@Override
+	public String toString() {
+		return "Detalle [id=" + id + ", cantidad=" + cantidad + ", precio=" + precio + ", pelicula=" + pelicula + "]";
+	}
+	
+	
 
 }

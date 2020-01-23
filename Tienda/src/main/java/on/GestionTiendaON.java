@@ -4,11 +4,13 @@ import java.util.List;
 
 
 import dao.UsuarioDAO;
+import modelo.Pelicula;
 import modelo.Usuario;
 
 public class GestionTiendaON {
 
 	UsuarioDAO ud = new UsuarioDAO();
+	
 
 
 	public void crearUsu(Usuario u) {
@@ -47,4 +49,6 @@ public class GestionTiendaON {
 	public List<Usuario> listadoUsuBuscado(String cedula) {
 		return ud.listadoUsuarioBuscado(cedula);
 	}
+	
+	
 }

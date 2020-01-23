@@ -107,5 +107,5 @@ public class Usuario {
 				+ ", correo=" + correo + ", password=" + password + ", admin=" + admin + ", cliente=" + cliente
 				+ ", carritos=" + carritos + "]";
 	}
-	
+
 }
