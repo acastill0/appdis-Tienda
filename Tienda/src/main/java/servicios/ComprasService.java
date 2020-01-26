@@ -30,7 +30,6 @@ public class ComprasService {
 			e.getMessage();
 		}
 		return "Carrito agregado";
-
 	}
 
 	@GET
