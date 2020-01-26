@@ -1,17 +1,5 @@
 package modelo;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class Producto {
 
 	private int id;
@@ -20,6 +8,9 @@ public class Producto {
 	private int votacion;
 	private double precio;
 	private int cantidad;
+	
+	private double precioTotal;
+	private int cantidadTotal;
 
 	private String categoria;
 
@@ -79,10 +70,34 @@ public class Producto {
 		this.categoria = categoria;
 	}
 
+	public double getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
+	public int getCantidadTotal() {
+		return cantidadTotal;
+	}
+
+	public void setCantidadTotal(int cantidadTotal) {
+		this.cantidadTotal = cantidadTotal;
+	}
+
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
 				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
 	}
+
+	/*@Override
+	public String toString() {
+		return "Producto [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
+	}*/
+	
+	
 
 }

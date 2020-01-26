@@ -20,7 +20,7 @@ public class Carrito {
 	private String fecha;
 	private double total;
 	private boolean estado;
-	
+	//EAGER
 	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinColumn(name = "carrito")
 	private List<Detalle> detalles;
@@ -68,8 +68,7 @@ public class Carrito {
 
 	@Override
 	public String toString() {
-		return "Carrito [id=" + id + ", fecha=" + fecha + ", total=" + total + ", estado=" + estado + ", detalles="
-				+ detalles + "]";
+		return "Carrito [id=" + id + ", fecha=" + fecha + ", total=" + total + ", estado=" + estado + "]";
 	}
 
 }

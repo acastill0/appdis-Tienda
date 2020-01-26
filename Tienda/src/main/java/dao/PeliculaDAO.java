@@ -11,7 +11,6 @@ import javax.persistence.Query;
 import modelo.Pelicula;
 import modelo.Producto;
 
-
 @Stateless
 public class PeliculaDAO {
 
@@ -46,38 +45,33 @@ public class PeliculaDAO {
 		}*/
 		return peliculas;
 	}
-	
-	
 
-	 public List<Pelicula>listaPeliculasPopulares(){
-			String jpql="SELECT t  from t Pelicula order by t.votacion";
-			Query query =em.createQuery(jpql, Pelicula.class);
-			return query.getResultList();
-		}
+	public List<Pelicula> listaPeliculasPopulares() {
+		String jpql = "SELECT t  from t Pelicula order by t.votacion";
+		Query query = em.createQuery(jpql, Pelicula.class);
+		return query.getResultList();
+	}
 
 	public List<Producto> ListadoProductos() {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
 		List<Pelicula> peliculas = q.getResultList();
 		List<Producto> productos = new ArrayList<Producto>();
-		
-		for (Pelicula pel : peliculas) {
-			Producto pro= new Producto();
-			pro.setId(pel.getId());
-			pro.setTitulo(pel.getTitulo());
-			pro.setImagen(pel.getImagen());
-			pro.setCantidad(pel.getCantidad());
-			pro.setCategoria(pel.getCategoria().getNombre());
-			pro.setPrecio(pel.getPrecio());
-			pro.setVotacion(pel.getVotacion());
-			productos.add(pro);
-		}
 
-		/*for (Pelicula pelicula : peliculas) {
-			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
-		}*/
+		for (Pelicula pe : peliculas) {
+			Producto pr = new Producto();
+			pr.setId(pe.getId());
+			pr.setTitulo(pe.getTitulo());
+			pr.setImagen(pe.getImagen());
+			pr.setCategoria(pe.getCategoria().getNombre());
+			pr.setCantidad(pe.getCantidad());
+			pr.setPrecio(pe.getPrecio());
+			pr.setVotacion(pe.getVotacion());
+			productos.add(pr);
+		}
 		return productos;
 	}
+
 	public List<Pelicula> listadoPeliculaBuscado(int id) {
 		Pelicula pb = buscar(id);
 		List<Pelicula> peliculaB = new ArrayList<Pelicula>();

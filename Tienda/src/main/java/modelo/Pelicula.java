@@ -36,8 +36,8 @@ public class Pelicula implements Serializable {
 	@JoinColumn(name = "categoria")
 	private Categoria categoria;
 
-	@OneToOne(mappedBy = "pelicula")
-	private Detalle detalle;
+	/*@OneToOne(mappedBy = "pelicula")
+	private Detalle detalle;*/
 
 	public int getId() {
 		return id;
@@ -95,28 +95,15 @@ public class Pelicula implements Serializable {
 		this.categoria = categoria;
 	}
 	
-	
-
-	public Detalle getDetalle() {
-		return detalle;
-	}
-
-	public void setDetalle(Detalle detalle) {
-		this.detalle = detalle;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
-				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + ", detalle=" + detalle
-				+ "]";
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
 	}
-
 
 }

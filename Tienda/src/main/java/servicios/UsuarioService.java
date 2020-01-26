@@ -64,7 +64,7 @@ public class UsuarioService {
 	public boolean loguinUsuario(@QueryParam("correo") String correo, @QueryParam("password") String password) {
 		boolean res = false;
 		try {
-			res = on.incioSesion(correo, password);
+			res = on.incioSesionCliente(correo, password);
 		} catch (Exception e) {
 			res = false;
 		}

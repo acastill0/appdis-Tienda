@@ -7,59 +7,62 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import dao.CarritoDAO;
+import dao.DetalleDAO;
 import dao.PeliculaDAO;
 import dao.UsuarioDAO;
-<<<<<<< HEAD
-import modelo.Producto;
-=======
 import modelo.Carrito;
+import modelo.Compra;
 import modelo.Detalle;
 import modelo.Pelicula;
->>>>>>> branch 'lucy' of https://github.com/acastill0/appdis-Tienda.git
+import modelo.Producto;
 import modelo.Usuario;
 
 @Stateless
 public class TiendaON {
 
 	@Inject
-	private UsuarioDAO usu;
-	
-	@Inject
-	private PeliculaDAO pel;
+	private UsuarioDAO usuarioDAO;
 
 	@Inject
 	private PeliculaDAO peliculaDAO;
 
+	@Inject
+	private CarritoDAO carritoDAO;
+	
+	@Inject
+	private DetalleDAO detalleDAO;
+
 	public void crearUsu(Usuario u) {
-		usu.insertar(u);
+		usuarioDAO.insertar(u);
 	}
 
 	public List<Usuario> listadoUsuarios() {
-		return usu.listadoUsuarios();
-	}
-<<<<<<< HEAD
-	
-	public boolean incioSesion(String correo, String pass) {
-		return usu.logueado(correo, pass);
-	}
-	
-	public List<Producto> listadoProductos() {
-		return pel.ListadoProductos();
-	}
-	
-	public Usuario logueadoUsuario(String correo, String pass) {
-		return usu.logueadoUsuario(correo, pass);
+		return usuarioDAO.listadoUsuarios();
 	}
 
-	
-=======
+	public boolean incioSesion(String correo, String pass) {
+		return usuarioDAO.logueado(correo, pass);
+	}
+
+	public boolean incioSesionCliente(String correo, String pass) {
+		return usuarioDAO.logueadoCliente(correo, pass);
+	}
+
+	public List<Producto> listadoProductos() {
+		return peliculaDAO.ListadoProductos();
+	}
+
+	public Usuario logueadoUsuario(String correo, String pass) {
+		return usuarioDAO.logueadoUsuario(correo, pass);
+	}
 
 	public List<Pelicula> listaProductosVendidos() {
 		return peliculaDAO.listaPeliculasPopulares();
 	}
 
 	public void agregarCarrito(String cedula, int idP, int cantidad) throws Exception {
-		Usuario usuario = usu.buscar(cedula);
+		Usuario usuario = usuarioDAO.buscar(cedula);
 		Carrito carrito2 = null;
 
 		if (usuario.getCarritos() == null) {
@@ -77,26 +80,25 @@ public class TiendaON {
 			carrito2.setDetalles(new ArrayList<Detalle>());
 			usuario.getCarritos().add(carrito2);
 		}
-		
+
 		Detalle detalle = new Detalle();
-	
+
 		Pelicula pelicula = peliculaDAO.buscar(idP);
-		if (pelicula!=null) {
-			
-		
-		detalle.setPelicula(pelicula);
-		detalle.setCantidad(cantidad);
-		detalle.setPrecio(pelicula.getPrecio() * cantidad);
-		carrito2.getDetalles().add(detalle);
-		usu.actualizar(usuario);
-		}else {
+		if (pelicula != null) {
+
+			detalle.setPelicula(pelicula);
+			detalle.setCantidad(cantidad);
+			detalle.setPrecio(pelicula.getPrecio() * cantidad);
+			carrito2.getDetalles().add(detalle);
+			usuarioDAO.actualizar(usuario);
+		} else {
 			new Exception("Producto no existe");
 		}
-		
+
 	}
 
-	public boolean finalizarCompra(String cedula)throws Exception {
-		Usuario usuario = usu.buscar(cedula);
+	public boolean finalizarCompra(String cedula) throws Exception {
+		Usuario usuario = usuarioDAO.buscar(cedula);
 		Carrito carrito2 = null;
 		if (usuario.getCarritos() == null) {
 			return false;
@@ -112,22 +114,113 @@ public class TiendaON {
 			return false;
 		}
 		double suma = 0.0;
-		for (Detalle detalle : carrito2.getDetalles()){
+		for (Detalle detalle : carrito2.getDetalles()) {
 			suma = suma + detalle.getPrecio();
 			detalle.getPelicula().setVotacion(detalle.getPelicula().getVotacion() + detalle.getCantidad());
-			if (detalle.getPelicula().getCantidad()>detalle.getCantidad()) {
-				detalle.getPelicula().setCantidad(detalle.getPelicula().getCantidad()-detalle.getCantidad());
-			}else {
+			if (detalle.getPelicula().getCantidad() > detalle.getCantidad()) {
+				detalle.getPelicula().setCantidad(detalle.getPelicula().getCantidad() - detalle.getCantidad());
+			} else {
 				new Exception("fuera de stock");
 			}
-			
+
 		}
 		carrito2.setTotal(suma);
 		carrito2.setEstado(true);
 
-		usu.actualizar(usuario);
+		usuarioDAO.actualizar(usuario);
 		return true;
 	}
 
->>>>>>> branch 'lucy' of https://github.com/acastill0/appdis-Tienda.git
+	public List<Compra> listaCompras(String cedula) {
+		List<Compra> resultado = new ArrayList<>();
+		Usuario u = usuarioDAO.buscar(cedula);
+		int id=0;
+		List<Carrito> carritosFin = carritoDAO.comprasCliente();
+		if (carritosFin == null) {
+			return null;
+		}
+		for (Carrito carritoC : u.getCarritos()) {
+			System.out.println("Carrito U "+u.getCarritos());
+			for (Carrito carritoF : carritosFin) {
+				if (carritoC.getId() == carritoF.getId()&&id!=carritoF.getId()) {
+					id=carritoF.getId();
+					Compra compra = new Compra();
+					compra.setId(carritoF.getId());
+					compra.setEstado(carritoF.isEstado());
+					compra.setFecha(obtenerFecha(carritoF.getFecha()));
+					compra.setTotal(carritoF.getTotal());
+					resultado.add(compra);
+					
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	public List<Producto> listaCarrito(String cedula) {
+		List<Producto> resultado = new ArrayList<>();
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario.getCarritos() == null) {
+			usuario.setCarritos(new ArrayList<Carrito>());
+		}
+		for (Carrito carrito : usuario.getCarritos()) {
+			if (!carrito.isEstado()) {
+				System.out.println("----> ID :"+carrito.getId());
+				System.out.println(" ........ DE: "+carrito.getDetalles());
+				for (Detalle det : carrito.getDetalles()) {
+					Producto p= new Producto();
+					p.setCantidadTotal(det.getCantidad());
+					p.setPrecioTotal(det.getPrecio());
+					p.setCantidad(det.getPelicula().getCantidad());
+					p.setId(det.getPelicula().getId());
+					p.setTitulo(det.getPelicula().getTitulo());
+					p.setImagen(det.getPelicula().getImagen());
+					p.setVotacion(det.getPelicula().getVotacion());
+					p.setPrecio(det.getPelicula().getPrecio());
+					p.setCantidad(det.getPelicula().getCantidad());
+					resultado.add(p);
+				}
+				break;
+			}
+		}
+
+		
+		return resultado;
+	}
+
+	public String obtenerFecha(String date) {
+		String fecha = "";
+		String dia = date.substring(8, 10);
+		String mes = date.substring(4, 7);
+		String anio = date.substring(24, 28);
+
+		if (mes.equals("Jan")) {
+			mes = "1";
+		} else if (mes.equals("Feb")) {
+			mes = "2";
+		} else if (mes.equals("Mar")) {
+			mes = "3";
+		} else if (mes.equals("Apr")) {
+			mes = "4";
+		} else if (mes.equals("May")) {
+			mes = "5";
+		} else if (mes.equals("Jun")) {
+			mes = "6";
+		} else if (mes.equals("Jul")) {
+			mes = "7";
+		} else if (mes.equals("Aug")) {
+			mes = "8";
+		} else if (mes.equals("Sept")) {
+			mes = "9";
+		} else if (mes.equals("Oct")) {
+			mes = "10";
+		} else if (mes.equals("Nov")) {
+			mes = "11";
+		} else if (mes.equals("Dec")) {
+			mes = "12";
+		}
+		fecha = dia + "/" + mes + "/" + anio;
+		return fecha;
+	}
+
 }
