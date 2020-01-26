@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import modelo.Carrito;
 import modelo.Usuario;
 
 @Stateless
@@ -49,9 +50,6 @@ public class UsuarioDAO {
 	}
 	
 
-	
-
-
 	public List<Usuario> ListadoDirecciones() {
 		String jpql = "SELECT d FROM Direccion d";
 		Query q = em.createQuery(jpql, Usuario.class);
@@ -92,4 +90,32 @@ public class UsuarioDAO {
 			return false;
 		}
 	}
+	public boolean logueadoCliente(String correo, String pass) {
+		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p AND u.cliente = :t";
+		Query q = em.createQuery(jpql, Usuario.class);
+		q.setParameter("c", correo);
+		q.setParameter("p", pass);
+		q.setParameter("t", true);
+		try {
+			Usuario u = (Usuario) q.getSingleResult();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Usuario logueadoUsuario(String correo, String pass) {
+		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p AND u.cliente = :t";
+		Query q = em.createQuery(jpql, Usuario.class);
+		q.setParameter("c", correo);
+		q.setParameter("p", pass);
+		q.setParameter("t", true);
+		try {
+			Usuario u = (Usuario) q.getSingleResult();
+			return u;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

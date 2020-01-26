@@ -13,12 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Categoria implements Serializable{
+public class Categoria{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -54,7 +50,7 @@ public class Categoria implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + ", peliculas=" + peliculas + "]";
+		return "Categoria [id=" + id + ", nombre=" + nombre + "]";
 	}
 
 }
