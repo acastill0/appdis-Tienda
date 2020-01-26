@@ -39,26 +39,16 @@ public class PeliculaDAO {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
 		List<Pelicula> peliculas = q.getResultList();
-<<<<<<< HEAD
+
 		for (Pelicula pelicula : peliculas) {
 			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
 
 		}
-=======
 
-		/*for (Pelicula pelicula : peliculas) {
-			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
-		}*/
->>>>>>> branch 'adriana-branch' of https://github.com/acastill0/appdis-Tienda.git
 		return peliculas;
 	}
-<<<<<<< HEAD
-	 public List<Pelicula>listaPeliculasPopulares(){
-			String jpql="SELECT t  from t Pelicula order by t.votacion";
-			Query query =em.createQuery(jpql, Pelicula.class);
-			return query.getResultList();
-=======
 
+	 
 	public List<Pelicula> listaPeliculasPopulares() {
 		String jpql = "SELECT t  from t Pelicula order by t.votacion";
 		Query query = em.createQuery(jpql, Pelicula.class);
@@ -81,7 +71,7 @@ public class PeliculaDAO {
 			pr.setPrecio(pe.getPrecio());
 			pr.setVotacion(pe.getVotacion());
 			productos.add(pr);
->>>>>>> branch 'adriana-branch' of https://github.com/acastill0/appdis-Tienda.git
+
 		}
 		return productos;
 	}

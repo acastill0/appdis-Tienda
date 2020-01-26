@@ -187,6 +187,32 @@ public class TiendaON {
 		
 		return resultado;
 	}
+	
+	public void eliminarCarrito(String cedula, int id) {
+		List<Detalle> resultado = new ArrayList<>();
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario.getCarritos() == null) {
+			usuario.setCarritos(new ArrayList<Carrito>());
+		}
+		for (Carrito carrito : usuario.getCarritos()) {
+			if (!carrito.isEstado()) {
+				System.out.println("----> ID :"+carrito.getId());
+				System.out.println(" ........ DE: "+carrito.getDetalles());
+				for (Detalle det : carrito.getDetalles()) {
+					if (det.getPelicula().getId()!=id) {
+						resultado.add(det);
+						System.out.println(det+"det");
+						
+					}
+				}
+				carrito.setDetalles(resultado);
+				System.out.println(resultado);
+				
+				usuarioDAO.actualizar(usuario);
+				break;
+			}
+		}
+	}
 
 	public String obtenerFecha(String date) {
 		String fecha = "";

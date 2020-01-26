@@ -69,4 +69,17 @@ public class ComprasService {
 		}
 	}
 	
+	@GET
+	@Path("/eliminarCarrito")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String eliminarCarrito(@QueryParam("cedula")String cedula, @QueryParam("id")int id) {
+		try {
+			 tiendaON.eliminarCarrito(cedula, id);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return "Carrito eliminada";
+	}
+	
 }
