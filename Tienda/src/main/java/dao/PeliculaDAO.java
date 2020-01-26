@@ -39,15 +39,12 @@ public class PeliculaDAO {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
 		List<Pelicula> peliculas = q.getResultList();
-//		for (Pelicula pelicula : peliculas) {
-//			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
-//
-//		}
+		for (Pelicula pelicula : peliculas) {
+			pelicula.getCategoria().setPeliculas(new ArrayList<Pelicula>());
+
+		}
 		return peliculas;
 	}
-	
-	
-
 	 public List<Pelicula>listaPeliculasPopulares(){
 			String jpql="SELECT t  from t Pelicula order by t.votacion";
 			Query query =em.createQuery(jpql, Pelicula.class);
