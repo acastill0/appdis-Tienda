@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+/*
+ * Clase que se generara en la base de dato par la tabla detalle
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @Entity
 @Table(name = "detalle")
 public class Detalle {
@@ -57,7 +60,7 @@ public class Detalle {
 
 	@Override
 	public String toString() {
-		return "Detalle [id=" + id + ", cantidad=" + cantidad + ", precio=" + precio + "]";
+		return "Detalle [id=" + id + ", cantidad=" + cantidad + ", precio=" + precio + "]\n";
 	}
 	
 	

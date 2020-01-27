@@ -44,9 +44,17 @@
 					<f:facet name="header">CANTIDAD</f:facet>
 				#{p.cantidad}
 			</h:column>
+			<h:column>
+					<f:facet name="header">IMAGEN</f:facet>
+					<center>
+						<h:graphicImage value="#{p.imagen}" id="imagen" width="70px" height="90px"/>
+					</center>
+
+				</h:column>
 			</h:dataTable>
 
 		</div>
 	</ui:define>
 </ui:composition>
 </html>
+	<!-- ################################################################################################ -->

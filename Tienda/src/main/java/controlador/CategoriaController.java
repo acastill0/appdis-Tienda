@@ -10,7 +10,10 @@ import javax.inject.Inject;
 
 import dao.CategoriaDAO;
 import modelo.Categoria;
-
+/*
+ * Clase que se crea para el mantenimiento de Categoría en la WEB
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @ManagedBean
 @SessionScoped
 

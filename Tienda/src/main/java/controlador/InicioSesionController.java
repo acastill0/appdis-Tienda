@@ -7,7 +7,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import dao.UsuarioDAO;
-
+/*
+ * Clase que se crea para el mantenimiento del inicio de sesión en la WEB
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @ManagedBean
 @SessionScoped
 public class InicioSesionController {

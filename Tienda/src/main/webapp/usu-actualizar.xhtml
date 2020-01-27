@@ -4,56 +4,63 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
 
-<body>
-	<center>
-		<h1>Actualizar Usuario</h1>
-	</center>
+<ui:composition template="/index.xhtml">
+	<ui:define name="titulo">Actualizar Usuario</ui:define>
 
-	<h:form>
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Cédula" for="cedula" />
-			<h:inputText value="#{usuarioController.u.cedula}" id="cedula" />
-			<h:message for="cedula" />
-		</h:panelGrid>
+	<ui:define name="formulario">
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Cédula" for="cedula" />
+				<h:inputText value="#{usuarioController.u.cedula}" id="cedula" class="two_quarter"/>
+				<h:message for="cedula" />
+			</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Nombre" for="nombre" />
-			<h:inputText value="#{usuarioController.u.nombre}" id="nombre" />
-			<h:message for="nombre" />
-		</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Nombre" for="nombre" />
+				<h:inputText value="#{usuarioController.u.nombre}" id="nombre" class="two_quarter"/>
+				<h:message for="nombre" />
+			</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Apellidos" for="apellido" />
-			<h:inputText value="#{usuarioController.u.apellido}" id="apellido" />
-			<h:message for="apellido" />
-		</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Apellidos" for="apellido" />
+				<h:inputText value="#{usuarioController.u.apellido}" id="apellido" class="two_quarter"/>
+				<h:message for="apellido" />
+			</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Teléfono" for="telefono" />
-			<h:inputText value="#{usuarioController.u.telefono}" id="telefono" />
-			<h:message for="telefono" />
-		</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Teléfono" for="telefono" />
+				<h:inputText value="#{usuarioController.u.telefono}" id="telefono" class="two_quarter"/>
+				<h:message for="telefono" />
+			</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Correo" for="correo" />
-			<h:inputText value="#{usuarioController.u.correo}" id="correo" />
-			<h:message for="correo" />
-		</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Correo" for="correo" />
+				<h:inputText value="#{usuarioController.u.correo}" id="correo" class="two_quarter"/>
+				<h:message for="correo" />
+			</h:panelGrid>
 
-		<h:panelGrid columns="3">
-			<h:outputLabel value="Contraseña" for="password" />
-			<h:inputSecret value="#{usuarioController.u.password}" id="password" />
-			<h:message for="password" />
-		</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Contraseña" for="password" />
+				<h:inputSecret value="#{usuarioController.u.password}" id="password" class="two_quarter"/>
+				<h:message for="password" />
+			</h:panelGrid>
 
-		<h:dataTable>
+			<h:dataTable>
 
-		</h:dataTable>
-		<h:commandButton action="#{usuarioController.buscar()}" value="Buscar" />
-		<h:commandButton action="#{usuarioController.actualizar()}"
-			value="Actualizar" />
-	</h:form>
-</body>
+			</h:dataTable>
+			<center>
+				<div>
+					<h:commandButton action="#{usuarioController.buscar()}"
+						value="Buscar" class="btn"/>
+					<h:commandButton action="#{usuarioController.actualizar()}"
+						value="Actualizar" class="btn" />
+				</div>
+			</center>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
 </html>
+<!-- ################################################################################################ -->
+

@@ -17,7 +17,10 @@ import modelo.Detalle;
 import modelo.Pelicula;
 import modelo.Producto;
 import modelo.Usuario;
-
+/*
+ * Clase para el mantenimiento de la Tienda
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @Stateless
 public class TiendaON {
 
@@ -29,38 +32,72 @@ public class TiendaON {
 
 	@Inject
 	private CarritoDAO carritoDAO;
-	
+
 	@Inject
 	private DetalleDAO detalleDAO;
+	
+	/**
+     * Método que crea un Usuario
+     */
 
 	public void crearUsu(Usuario u) {
 		usuarioDAO.insertar(u);
 	}
-
+	/**
+     * Método que actualiza al Carrito
+     */
+	public void actualizarCarr(Carrito c) {
+		carritoDAO.actualizar(c);
+	}
+	/**
+     * Método que lista los Usuarios
+     */
 	public List<Usuario> listadoUsuarios() {
 		return usuarioDAO.listadoUsuarios();
 	}
-
+	/**
+     * Método que verifica si inicia sesión o no el Admin
+     */
 	public boolean incioSesion(String correo, String pass) {
 		return usuarioDAO.logueado(correo, pass);
 	}
-
+	/**
+     * Método que verifica si inicia sesión o no el Cliente
+     */
 	public boolean incioSesionCliente(String correo, String pass) {
 		return usuarioDAO.logueadoCliente(correo, pass);
 	}
-
+	/**
+     * Método que lista las Películas
+     */
 	public List<Producto> listadoProductos() {
 		return peliculaDAO.ListadoProductos();
 	}
-
+	/**
+     * Método que verifica si inicia sesión o no el Cliente
+     * @return El  Cliente logueado
+     */
 	public Usuario logueadoUsuario(String correo, String pass) {
 		return usuarioDAO.logueadoUsuario(correo, pass);
 	}
-
-	public List<Pelicula> listaProductosVendidos() {
-		return peliculaDAO.listaPeliculasPopulares();
+	/**
+     * Método que lista las 10 películas más vendidas
+     * @return El  top de las listas
+     */
+	public List<Pelicula> listaPeliculasMasVendidas() {
+		List<Pelicula> top = new ArrayList<>();
+		int cont = 0;
+		for (Pelicula pelicula : peliculaDAO.listaPeliculasVendidasTop()) {
+			if (cont < 10) {
+				top.add(pelicula);
+				cont++;
+			}
+		}
+		return top;
 	}
-
+	/**
+     * Método que agregar peliculas al carrito del cliente
+     */
 	public void agregarCarrito(String cedula, int idP, int cantidad) throws Exception {
 		Usuario usuario = usuarioDAO.buscar(cedula);
 		Carrito carrito2 = null;
@@ -96,7 +133,9 @@ public class TiendaON {
 		}
 
 	}
-
+	/**
+     * Método que finaliza una compra de un cliente
+     */
 	public boolean finalizarCompra(String cedula) throws Exception {
 		Usuario usuario = usuarioDAO.buscar(cedula);
 		Carrito carrito2 = null;
@@ -130,33 +169,39 @@ public class TiendaON {
 		usuarioDAO.actualizar(usuario);
 		return true;
 	}
-
+	/**
+     * Método que lista las compras de un Cliente
+     * @return La lista de compras realizadas
+     */
 	public List<Compra> listaCompras(String cedula) {
 		List<Compra> resultado = new ArrayList<>();
 		Usuario u = usuarioDAO.buscar(cedula);
-		int id=0;
+		int id = 0;
 		List<Carrito> carritosFin = carritoDAO.comprasCliente();
 		if (carritosFin == null) {
 			return null;
 		}
 		for (Carrito carritoC : u.getCarritos()) {
-			System.out.println("Carrito U "+u.getCarritos());
+			System.out.println("Carrito U " + u.getCarritos());
 			for (Carrito carritoF : carritosFin) {
-				if (carritoC.getId() == carritoF.getId()&&id!=carritoF.getId()) {
-					id=carritoF.getId();
+				if (carritoC.getId() == carritoF.getId() && id != carritoF.getId()) {
+					id = carritoF.getId();
 					Compra compra = new Compra();
 					compra.setId(carritoF.getId());
 					compra.setEstado(carritoF.isEstado());
 					compra.setFecha(obtenerFecha(carritoF.getFecha()));
 					compra.setTotal(carritoF.getTotal());
 					resultado.add(compra);
-					
+
 				}
 			}
 		}
 		return resultado;
 	}
-	
+	/**
+     * Método que lista los items del carrito de un Cliente
+     * @return La lista de items
+     */
 	public List<Producto> listaCarrito(String cedula) {
 		List<Producto> resultado = new ArrayList<>();
 		Usuario usuario = usuarioDAO.buscar(cedula);
@@ -165,10 +210,10 @@ public class TiendaON {
 		}
 		for (Carrito carrito : usuario.getCarritos()) {
 			if (!carrito.isEstado()) {
-				System.out.println("----> ID :"+carrito.getId());
-				System.out.println(" ........ DE: "+carrito.getDetalles());
+				System.out.println("----> ID :" + carrito.getId());
+				System.out.println(" ........ DE: " + carrito.getDetalles());
 				for (Detalle det : carrito.getDetalles()) {
-					Producto p= new Producto();
+					Producto p = new Producto();
 					p.setCantidadTotal(det.getCantidad());
 					p.setPrecioTotal(det.getPrecio());
 					p.setCantidad(det.getPelicula().getCantidad());
@@ -183,11 +228,45 @@ public class TiendaON {
 				break;
 			}
 		}
-
-		
 		return resultado;
 	}
+	/**
+     * Método que elimina peliculas del carrito del cliente
+     */
+	public String eliminarPeliculaCarrito(String cedula, int idP) {
+		int cont = 0;
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario.getCarritos() == null) {
+			usuario.setCarritos(new ArrayList<Carrito>());
+		}
+		try {
 
+			for (Carrito carrito : usuario.getCarritos()) {
+				if (!carrito.isEstado()) {
+					for (Detalle det : carrito.getDetalles()) {
+						cont++;
+						if (det.getPelicula().getId() == idP) {
+							System.out.println("\n" + carrito.getDetalles());
+							System.out.println("Cont = " + (cont - 1));
+							System.out.println("Delet " + carrito.getDetalles().get(cont - 1));
+							carrito.getDetalles().remove(cont - 1);
+							// System.out.println("Res "+carrito.getDetalles());
+							// actualizarCarr(carrito);
+
+						}
+					}
+					break;
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "Eliminado";
+	}
+	/**
+     * Método que convierte la fecha
+     */
 	public String obtenerFecha(String date) {
 		String fecha = "";
 		String dia = date.substring(8, 10);

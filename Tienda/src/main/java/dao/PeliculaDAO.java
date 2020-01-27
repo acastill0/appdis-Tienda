@@ -11,30 +11,46 @@ import javax.persistence.Query;
 import modelo.Pelicula;
 import modelo.Producto;
 
+/*
+ * Clase Crud para Pelicula
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @Stateless
 public class PeliculaDAO {
 
 	@Inject
 	private EntityManager em;
-
+	/**
+     * Método que crea una Pelicula
+     */
 	public void insertar(Pelicula p) {
 		em.persist(p);
 	}
-
+	/**
+     * Método que actualiza una Pelicula
+     */
 	public void actualizar(Pelicula p) {
 		em.merge(p);
 	}
-
+	/**
+     * Método que borra una Pelicula
+     */
 	public void borrar(int id) {
 		em.remove(buscar(id));
 	}
-
+	/**
+     * Método que busca una Película
+     *  @return La Película buscada
+     */
 	public Pelicula buscar(int id) {
 		Pelicula p;
 		p = em.find(Pelicula.class, id);
 		return p;
 	}
-
+	/**
+     * Método retorna una lista de Películas
+     *  @return Las películas existentes
+     */
 	public List<Pelicula> ListadoPeliculas() {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
@@ -45,13 +61,20 @@ public class PeliculaDAO {
 		}*/
 		return peliculas;
 	}
-
-	public List<Pelicula> listaPeliculasPopulares() {
-		String jpql = "SELECT t  from t Pelicula order by t.votacion";
+	/**
+     * Método retorna una lista de Películas más vendida
+     *  @return Las películas más vendidas
+     */
+	public List<Pelicula> listaPeliculasVendidasTop() {
+		//String jpql = "SELECT t  from t Pelicula order by t.votacion";
+		String jpql = "SELECT p FROM Pelicula p ORDER BY p.votacion DESC";
 		Query query = em.createQuery(jpql, Pelicula.class);
 		return query.getResultList();
 	}
-
+	/**
+     * Método retorna una lista de Películas
+     *  @return Las películas existentes
+     */
 	public List<Producto> ListadoProductos() {
 		String jpql = "SELECT p FROM Pelicula p";
 		Query q = em.createQuery(jpql, Pelicula.class);
@@ -59,19 +82,22 @@ public class PeliculaDAO {
 		List<Producto> productos = new ArrayList<Producto>();
 
 		for (Pelicula pe : peliculas) {
-			Producto pr = new Producto();
-			pr.setId(pe.getId());
-			pr.setTitulo(pe.getTitulo());
-			pr.setImagen(pe.getImagen());
-			pr.setCategoria(pe.getCategoria().getNombre());
-			pr.setCantidad(pe.getCantidad());
-			pr.setPrecio(pe.getPrecio());
-			pr.setVotacion(pe.getVotacion());
-			productos.add(pr);
+			Producto p= new Producto();
+			p.setId(pe.getId());
+			p.setTitulo(pe.getTitulo());
+			p.setImagen(pe.getImagen());
+			p.setCategoria(pe.getCategoria().getNombre());
+			p.setCantidad(pe.getCantidad());
+			p.setPrecio(pe.getPrecio());
+			p.setVotacion(pe.getVotacion());
+			productos.add(p);
 		}
 		return productos;
 	}
-
+	/**
+     * Método retorna una lista de Películas buscadas
+     *  @return Las películas buscadas
+     */
 	public List<Pelicula> listadoPeliculaBuscado(int id) {
 		Pelicula pb = buscar(id);
 		List<Pelicula> peliculaB = new ArrayList<Pelicula>();

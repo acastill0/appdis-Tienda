@@ -10,7 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Email;
-
+/*
+ * Clase que se generara en la base de dato par la tabla Usuario
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @Entity
 public class Usuario {
 

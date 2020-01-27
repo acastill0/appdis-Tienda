@@ -1,5 +1,8 @@
 package servicios;
-
+/*
+ * Clase de respuesta para los servicios
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 public class Respuesta {
 	private int codigo;
 	private String mensajes;

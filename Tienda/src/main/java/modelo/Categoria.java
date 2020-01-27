@@ -1,6 +1,5 @@
 package modelo;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
+/*
+ * Clase que se generara en la base de dato par la tabla Categoría
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @Entity
 public class Categoria{
 

@@ -9,7 +9,10 @@ import javax.inject.Inject;
 import dao.UsuarioDAO;
 import modelo.Usuario;
 import on.GestionTiendaON;
-
+/*
+ * Clase que se crea para el mantenimiento de Usuario en la WEB
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @ManagedBean
 public class UsuarioController {
 

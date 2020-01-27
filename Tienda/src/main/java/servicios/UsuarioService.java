@@ -15,19 +15,29 @@ import javax.ws.rs.core.MediaType;
 import dao.UsuarioDAO;
 import modelo.Usuario;
 import on.TiendaON;
+
+/*
+ * Clase de servicios para el Usuario
+ * @author: Lucy Garay, Adriana Castillo
+ * */
+
 @Path("/usuarios")
 public class UsuarioService {
 	@Inject
 	private TiendaON on;
 	// private UsuarioDAO usuarioDAO;
-
+	/**
+     * Método que aobtiene todos los usuarios
+     */
 	@GET
 	@Path("getUsuarios")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> getUsuario() {
 		return on.listadoUsuarios();
 	}
-
+	/**
+     * Método que permite crear usuarios
+     */
 	@GET
 	@Path("setUsuarios")
 	@Produces("application/json")
@@ -56,7 +66,9 @@ public class UsuarioService {
 		}
 		return r;
 	}
-
+	/**
+     * Método que permite al usuario loguearse en la app
+     */
 	@GET
 	@Path("loguinUsu")
 	@Produces("application/json")
@@ -70,14 +82,15 @@ public class UsuarioService {
 		}
 		return res;
 	}
-	
+	/**
+     * Método que busca un Cliente
+     */
 	@GET
 	@Path("buscarCliente")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Usuario buscarCliente(@QueryParam("correo") String correo,@QueryParam("pass") String pass) {
+	public Usuario buscarCliente(@QueryParam("correo") String correo, @QueryParam("pass") String pass) {
 		return on.logueadoUsuario(correo, pass);
 	}
-	
 
 }

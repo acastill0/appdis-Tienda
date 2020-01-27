@@ -14,7 +14,10 @@ import dao.PeliculaDAO;
 import modelo.Pelicula;
 import modelo.Producto;
 import on.TiendaON;
-
+/*
+ * Clase de servicios para la Pelicula
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 @Path("/peliculas")
 public class PeliculasService {
 
@@ -23,7 +26,9 @@ public class PeliculasService {
 
 	@Inject
 	private TiendaON tiendaON;
-
+	/**
+     * Método que acre Peliculas
+     */
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
@@ -39,14 +44,15 @@ public class PeliculasService {
 		}
 		return r;
 	}
-
+	/**
+     * Método que obtiene todas las peliculas
+     */
 	@GET
 	@Path("getProductos")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Producto> getProductos() {
 		try {
 			return g.ListadoProductos();
-
 		} catch (Exception e) {
 			e.getStackTrace();
 			return null;

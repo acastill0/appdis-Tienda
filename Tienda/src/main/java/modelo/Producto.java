@@ -1,5 +1,8 @@
 package modelo;
-
+/*
+ * Clase que se setearan los datos de la pelicura para consumo del cliente movil
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 public class Producto {
 
 	private int id;

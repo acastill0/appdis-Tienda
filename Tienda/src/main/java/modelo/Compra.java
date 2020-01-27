@@ -1,7 +1,10 @@
 package modelo;
 
 import java.util.List;
-
+/*
+ * Clase que se generara para el consumo del cliente movil
+ * @author: Lucy Garay, Adriana Castillo
+ * */
 public class Compra {
 
 	private int id;
