@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import modelo.Pelicula;
 import modelo.Producto;
+import modelo.Tarjeta;
 
 @Stateless
 public class PeliculaDAO {
@@ -48,19 +49,17 @@ public class PeliculaDAO {
 		return peliculas;
 	}
 
-	 
 	public List<Pelicula> listaPeliculasPopulares() {
 		String jpql = "SELECT t  from t Pelicula order by t.votacion";
 		Query query = em.createQuery(jpql, Pelicula.class);
 		return query.getResultList();
 	}
-	
+
 	public List<Pelicula> listaPeliculasVendidas() {
 		String jpql = "SELECT t  from t Pelicula order by t.vendidas";
 		Query query = em.createQuery(jpql, Pelicula.class);
 		return query.getResultList();
 	}
-	
 
 	public List<Producto> ListadoProductos() {
 		String jpql = "SELECT p FROM Pelicula p";
@@ -89,4 +88,15 @@ public class PeliculaDAO {
 		peliculaB.add(pb);
 		return peliculaB;
 	}
+
+	public List<Pelicula> buscarPelicula(String titulo) {
+		String jpql = "SELECT p FROM Pelicula p WHERE p.titulo like ?1";
+		System.out.println(jpql);
+		Query query = em.createQuery(jpql, Pelicula.class);
+		query.setParameter(1, titulo);
+		return query.getResultList();
+	}
+	
+
+
 }

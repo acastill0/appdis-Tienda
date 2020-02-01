@@ -9,7 +9,9 @@ import javax.inject.Inject;
 
 import dao.CarritoDAO;
 import dao.DetalleDAO;
+import dao.DireccionDAO;
 import dao.PeliculaDAO;
+import dao.TarjetaDAO;
 import dao.UsuarioDAO;
 import modelo.Carrito;
 import modelo.Compra;
@@ -34,6 +36,12 @@ public class TiendaON {
 
 	@Inject
 	private DetalleDAO detalleDAO;
+	
+	@Inject
+	private TarjetaDAO tarjetaDAO;
+	
+	@Inject
+	private DireccionDAO direccionDAO;
 
 	public void crearUsu(Usuario u) {
 		usuarioDAO.insertar(u);
@@ -257,7 +265,7 @@ public class TiendaON {
 		Usuario usuario = usuarioDAO.buscar(cedula);
 	}
 
-	public void agregarTarjetasUsuario(String cedula, String fechaVencimiento, String numero, String titutar ) {
+	public void agregarTarjetasUsuario(String cedula, String fechaVencimiento, String numero, String titutar) {
 		Usuario usuario = usuarioDAO.buscar(cedula);
 		System.out.println(usuario);
 		Tarjeta detalle = new Tarjeta();
@@ -272,7 +280,6 @@ public class TiendaON {
 		}
 	}
 
-	
 	public void agregarDireccionesUsuario(String cedula, String direccion) {
 		Usuario usuario = usuarioDAO.buscar(cedula);
 		System.out.println(usuario);
@@ -285,5 +292,53 @@ public class TiendaON {
 			new Exception("Usuario no existe");
 		}
 	}
+
+	public List<Tarjeta> listaTarjetasUsuario(String cedula) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario == null) {
+			return new ArrayList<Tarjeta>();
+		}
+		return usuario.getTarjetas();
+	}
+
+	public List<Direccion> listaDireccionesUsuario(String cedula) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario == null) {
+			return new ArrayList<Direccion>();
+		}
+		return usuario.getDirecciones();
+	}
+	
+	public String eliminarTarjeta(int id) {
+	    try {
+	      System.out.println("ID a Eliminar "+id);
+	      System.out.println("--> "+tarjetaDAO.borrar(id));
+	      
+	      return "Tarjeta eliminada";
+	    } catch (Exception e) { 
+	      return e.getStackTrace().toString();
+	    }
+	  }
+	
+	public String eliminarDireccion(int id) {
+	    try {
+	      System.out.println("ID a Eliminar "+id);
+	      System.out.println("--> "+direccionDAO.borrar(id));
+	      
+	      return "Direccion eliminada";
+	    } catch (Exception e) { 
+	      return e.getStackTrace().toString();
+	    }
+	  }
+	
+	public List<Pelicula>buscarPeliculas(String titulo){
+		return peliculaDAO.buscarPelicula(titulo);
+	}
+	
+
+
+	
+	
+	
 
 }

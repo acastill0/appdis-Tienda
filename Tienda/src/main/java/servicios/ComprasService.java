@@ -4,12 +4,15 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import modelo.Compra;
+import modelo.Direccion;
 import modelo.Producto;
+import modelo.Tarjeta;
 import on.TiendaON;
 
 @Path("/compras")
@@ -81,5 +84,41 @@ public class ComprasService {
 		}
 		return "Carrito eliminada";
 	}
+	
+	@POST
+	@Path("eliminarTarjeta")
+	@Produces("application/json")
+	@Consumes("application/json")
+	  public Respuesta eliminarTarjeta(Tarjeta detalle) {
+	    Respuesta r = new Respuesta();
+	    try {
+	      System.out.println("Detalle "+detalle.getId());
+	      tiendaON.eliminarTarjeta(detalle.getId());
+	      r.setCodigo(0);
+	      r.setMensajes("OK");
+	    }catch(Exception e) {
+	      r.setCodigo(99);
+	      r.setMensajes("Error al eliminar tarjeta");
+	    }
+	    return r;
+	  }
+	
+	@POST
+	@Path("eliminarDireccion")
+	@Produces("application/json")
+	@Consumes("application/json")
+	  public Respuesta eliminarDireccion(Direccion detalle) {
+	    Respuesta r = new Respuesta();
+	    try {
+	      System.out.println("Detalle "+detalle.getId());
+	      tiendaON.eliminarDireccion(detalle.getId());
+	      r.setCodigo(0);
+	      r.setMensajes("OK");
+	    }catch(Exception e) {
+	      r.setCodigo(99);
+	      r.setMensajes("Error al eliminar tarjeta");
+	    }
+	    return r;
+	  }
 	
 }
