@@ -54,6 +54,13 @@ public class PeliculaDAO {
 		Query query = em.createQuery(jpql, Pelicula.class);
 		return query.getResultList();
 	}
+	
+	public List<Pelicula> listaPeliculasVendidas() {
+		String jpql = "SELECT t  from t Pelicula order by t.vendidas";
+		Query query = em.createQuery(jpql, Pelicula.class);
+		return query.getResultList();
+	}
+	
 
 	public List<Producto> ListadoProductos() {
 		String jpql = "SELECT p FROM Pelicula p";

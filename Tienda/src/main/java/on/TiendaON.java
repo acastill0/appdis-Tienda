@@ -14,8 +14,10 @@ import dao.UsuarioDAO;
 import modelo.Carrito;
 import modelo.Compra;
 import modelo.Detalle;
+import modelo.Direccion;
 import modelo.Pelicula;
 import modelo.Producto;
+import modelo.Tarjeta;
 import modelo.Usuario;
 
 @Stateless
@@ -29,7 +31,7 @@ public class TiendaON {
 
 	@Inject
 	private CarritoDAO carritoDAO;
-	
+
 	@Inject
 	private DetalleDAO detalleDAO;
 
@@ -57,8 +59,12 @@ public class TiendaON {
 		return usuarioDAO.logueadoUsuario(correo, pass);
 	}
 
-	public List<Pelicula> listaProductosVendidos() {
+	public List<Pelicula> listaProductosVotados() {
 		return peliculaDAO.listaPeliculasPopulares();
+	}
+
+	public List<Pelicula> listaProductosVendidos() {
+		return peliculaDAO.listaPeliculasVendidas();
 	}
 
 	public void agregarCarrito(String cedula, int idP, int cantidad) throws Exception {
@@ -94,7 +100,6 @@ public class TiendaON {
 		} else {
 			new Exception("Producto no existe");
 		}
-
 	}
 
 	public boolean finalizarCompra(String cedula) throws Exception {
@@ -116,47 +121,46 @@ public class TiendaON {
 		double suma = 0.0;
 		for (Detalle detalle : carrito2.getDetalles()) {
 			suma = suma + detalle.getPrecio();
-			detalle.getPelicula().setVotacion(detalle.getPelicula().getVotacion() + detalle.getCantidad());
+			detalle.getPelicula().setVendidos(detalle.getPelicula().getVendidos() + detalle.getCantidad());
 			if (detalle.getPelicula().getCantidad() > detalle.getCantidad()) {
 				detalle.getPelicula().setCantidad(detalle.getPelicula().getCantidad() - detalle.getCantidad());
 			} else {
 				new Exception("fuera de stock");
 			}
-
 		}
 		carrito2.setTotal(suma);
 		carrito2.setEstado(true);
-
+		usuario.setCompras(usuario.getCompras() + 1);
 		usuarioDAO.actualizar(usuario);
+		System.out.println(usuario.getCompras());
 		return true;
 	}
 
 	public List<Compra> listaCompras(String cedula) {
 		List<Compra> resultado = new ArrayList<>();
 		Usuario u = usuarioDAO.buscar(cedula);
-		int id=0;
+		int id = 0;
 		List<Carrito> carritosFin = carritoDAO.comprasCliente();
 		if (carritosFin == null) {
 			return null;
 		}
 		for (Carrito carritoC : u.getCarritos()) {
-			System.out.println("Carrito U "+u.getCarritos());
+			System.out.println("Carrito U " + u.getCarritos());
 			for (Carrito carritoF : carritosFin) {
-				if (carritoC.getId() == carritoF.getId()&&id!=carritoF.getId()) {
-					id=carritoF.getId();
+				if (carritoC.getId() == carritoF.getId() && id != carritoF.getId()) {
+					id = carritoF.getId();
 					Compra compra = new Compra();
 					compra.setId(carritoF.getId());
 					compra.setEstado(carritoF.isEstado());
 					compra.setFecha(obtenerFecha(carritoF.getFecha()));
 					compra.setTotal(carritoF.getTotal());
 					resultado.add(compra);
-					
 				}
 			}
 		}
 		return resultado;
 	}
-	
+
 	public List<Producto> listaCarrito(String cedula) {
 		List<Producto> resultado = new ArrayList<>();
 		Usuario usuario = usuarioDAO.buscar(cedula);
@@ -165,10 +169,10 @@ public class TiendaON {
 		}
 		for (Carrito carrito : usuario.getCarritos()) {
 			if (!carrito.isEstado()) {
-				System.out.println("----> ID :"+carrito.getId());
-				System.out.println(" ........ DE: "+carrito.getDetalles());
+				System.out.println("----> ID :" + carrito.getId());
+				System.out.println(" ........ DE: " + carrito.getDetalles());
 				for (Detalle det : carrito.getDetalles()) {
-					Producto p= new Producto();
+					Producto p = new Producto();
 					p.setCantidadTotal(det.getCantidad());
 					p.setPrecioTotal(det.getPrecio());
 					p.setCantidad(det.getPelicula().getCantidad());
@@ -184,10 +188,9 @@ public class TiendaON {
 			}
 		}
 
-		
 		return resultado;
 	}
-	
+
 	public void eliminarCarrito(String cedula, int id) {
 		List<Detalle> resultado = new ArrayList<>();
 		Usuario usuario = usuarioDAO.buscar(cedula);
@@ -196,18 +199,18 @@ public class TiendaON {
 		}
 		for (Carrito carrito : usuario.getCarritos()) {
 			if (!carrito.isEstado()) {
-				System.out.println("----> ID :"+carrito.getId());
-				System.out.println(" ........ DE: "+carrito.getDetalles());
+				System.out.println("----> ID :" + carrito.getId());
+				System.out.println(" ........ DE: " + carrito.getDetalles());
 				for (Detalle det : carrito.getDetalles()) {
-					if (det.getPelicula().getId()!=id) {
+					if (det.getPelicula().getId() != id) {
 						resultado.add(det);
-						System.out.println(det+"det");
-						
+						System.out.println(det + "det");
+
 					}
 				}
 				carrito.setDetalles(resultado);
 				System.out.println(resultado);
-				
+
 				usuarioDAO.actualizar(usuario);
 				break;
 			}
@@ -247,6 +250,40 @@ public class TiendaON {
 		}
 		fecha = dia + "/" + mes + "/" + anio;
 		return fecha;
+	}
+
+	public void liked(String cedula) {
+		List<Detalle> resultado = new ArrayList<>();
+		Usuario usuario = usuarioDAO.buscar(cedula);
+	}
+
+	public void agregarTarjetasUsuario(String cedula, String fechaVencimiento, String numero, String titutar ) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		System.out.println(usuario);
+		Tarjeta detalle = new Tarjeta();
+		if (usuario != null) {
+			detalle.setFechaVencimiento(fechaVencimiento);
+			detalle.setNumero(numero);
+			detalle.setTitular(titutar);
+			usuario.getTarjetas().add(detalle);
+			usuarioDAO.actualizar(usuario);
+		} else {
+			new Exception("Usuario no existe");
+		}
+	}
+
+	
+	public void agregarDireccionesUsuario(String cedula, String direccion) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		System.out.println(usuario);
+		Direccion detalle = new Direccion();
+		if (usuario != null) {
+			detalle.setDirecciones(direccion);
+			usuario.getDirecciones().add(detalle);
+			usuarioDAO.actualizar(usuario);
+		} else {
+			new Exception("Usuario no existe");
+		}
 	}
 
 }

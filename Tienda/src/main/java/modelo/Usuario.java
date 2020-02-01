@@ -24,10 +24,19 @@ public class Usuario {
 	private String password;
 	private boolean admin;
 	private boolean cliente;
-	
-	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
+	private int compras;
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario")
 	private List<Carrito> carritos;
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario")
+	private List<Direccion> direcciones;
+
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario")
+	private List<Tarjeta> tarjetas;
 
 	public String getCedula() {
 		return cedula;
@@ -101,11 +110,35 @@ public class Usuario {
 		this.carritos = carritos;
 	}
 
+	public int getCompras() {
+		return compras;
+	}
+
+	public void setCompras(int compras) {
+		this.compras = compras;
+	}
+
+	public List<Direccion> getDirecciones() {
+		return direcciones;
+	}
+
+	public void setDirecciones(List<Direccion> direcciones) {
+		this.direcciones = direcciones;
+	}
+
+	public List<Tarjeta> getTarjetas() {
+		return tarjetas;
+	}
+
+	public void setTarjetas(List<Tarjeta> tarjetas) {
+		this.tarjetas = tarjetas;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono
 				+ ", correo=" + correo + ", password=" + password + ", admin=" + admin + ", cliente=" + cliente
-				+ ", carritos=" + carritos + "]";
+				+ ", compras=" + compras + ", carritos=" + carritos + ", direcciones=" + direcciones + ", tarjetas="
+				+ tarjetas + "]";
 	}
-
 }

@@ -79,5 +79,30 @@ public class UsuarioService {
 		return on.logueadoUsuario(correo, pass);
 	}
 	
+	
+	@GET
+	@Path("agregarTarjeta")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String agregarTarjetasUsuario(@QueryParam("cedula")String cedula,@QueryParam("fechaVencimiento") String fechaVencimiento,@QueryParam("numero") String numero,@QueryParam("titutar") String titutar ) {
+		try {
+			on.agregarTarjetasUsuario(cedula, fechaVencimiento, numero, titutar);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return "Tarjeta agregada";
+	}
+	@GET
+	@Path("agregarDireccion")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String agregarDireccionesUsuario(@QueryParam("cedula")String cedula,@QueryParam("direccion") String direccion) {
+		try {
+			on.agregarDireccionesUsuario(cedula, direccion);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return "Direccion agregada";
+	}
 
 }

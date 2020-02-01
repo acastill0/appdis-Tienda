@@ -17,10 +17,12 @@ public class Carrito {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	private String fecha;
 	private double total;
 	private boolean estado;
 	//EAGER
+	
 	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinColumn(name = "carrito")
 	private List<Detalle> detalles;

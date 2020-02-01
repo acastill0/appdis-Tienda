@@ -31,6 +31,15 @@ public class Pelicula implements Serializable {
 	private int votacion;
 	private double precio;
 	private int cantidad;
+	private int vendidos;
+
+	public int getVendidos() {
+		return vendidos;
+	}
+
+	public void setVendidos(int vendidos) {
+		this.vendidos = vendidos;
+	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria")
@@ -103,7 +112,7 @@ public class Pelicula implements Serializable {
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", imagen=" + imagen + ", votacion=" + votacion
-				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", vendidos=" + vendidos + ", categoria="
+				+ categoria + "]";
 	}
-
 }
