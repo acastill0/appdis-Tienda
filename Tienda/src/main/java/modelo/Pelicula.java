@@ -132,12 +132,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * */
 @Entity
 @Table(name = "pelicula")
-public class Pelicula implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Pelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -209,11 +204,7 @@ public class Pelicula implements Serializable {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	@Override
 	public String toString() {

@@ -4,13 +4,16 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
 import modelo.Compra;
 import modelo.Detalle;
 import modelo.Producto;
+import modelo.Usuario;
 import on.TiendaON;
 /*
  * Clase de servicios para la Compra
@@ -24,29 +27,29 @@ public class ComprasService {
 	/**
      * Método que agrega productos al carrito
      */
-	@GET
-	@Path("/agregarCarrito")
+	@POST
+	@Path("/agregarAlCarrito")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String agregarCarrito(@QueryParam("cedula") String cedula, @QueryParam("intP") int idP,
-			@QueryParam("cantidad") int cantidad) {
+	public String addCarrito(@QueryParam("cedula") String cedula,Detalle det) {
 		try {
-			tiendaON.agregarCarrito(cedula, idP, cantidad);
+			tiendaON.agregarCarrito(cedula, det.getPelicula().getId(), det.getCantidad());
 		} catch (Exception e) {
 			e.getMessage();
 		}
 		return "Carrito agregado";
 	}
+	
 	/**
      * Método que finaliza la compra de un cliente
      */
-	@GET
-	@Path("/finalizarCompra")
+	@POST
+	@Path("/finCompra")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String finalizarCompra(@QueryParam("cedula") String cedula) {
+	public String finCompra(Usuario usuario) {
 		try {
-			tiendaON.finalizarCompra(cedula);
+			tiendaON.finalizarCompra(usuario.getCedula());
 		} catch (Exception e) {
 			e.getMessage();
 		}
@@ -83,17 +86,21 @@ public class ComprasService {
 	/**
      * Método que elimina un producto del carrito de un cliente
      */
-	
-	@GET
-	@Path("deleteCarrito")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String  eliminarCarrito(@QueryParam("cedula") String cedula,@QueryParam("idP") int idP) {
+	@POST
+	@Path("deleteDelCarrito")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Respuesta deleteDelCar(Detalle detalle) {
+		Respuesta r = new Respuesta();
 		try {
-			return tiendaON.eliminarPeliculaCarrito(cedula, idP);
-		} catch (Exception e) {
-			e.getStackTrace();
-			return "No se ha podido eliminar.";
+			System.out.println("Detalle "+detalle.getId());
+			tiendaON.eliminarDelCarrito(detalle.getId());
+			r.setCodigo(0);
+			r.setMensajes("OK");
+		}catch(Exception e) {
+			r.setCodigo(99);
+			r.setMensajes("Error al eliminar");
 		}
+		return r;
 	}
-	
 }

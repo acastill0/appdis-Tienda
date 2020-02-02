@@ -12,7 +12,7 @@ public class Compra {
 	private double total;
 	private boolean estado;
 	
-	private List<Producto> detalles;
+	private List<Detalle> detalles;
 
 	public int getId() {
 		return id;
@@ -46,11 +46,11 @@ public class Compra {
 		this.estado = estado;
 	}
 
-	public List<Producto> getDetalles() {
+	public List<Detalle> getDetalles() {
 		return detalles;
 	}
 
-	public void setDetalles(List<Producto> detalles) {
+	public void setDetalles(List<Detalle> detalles) {
 		this.detalles = detalles;
 	}
 
