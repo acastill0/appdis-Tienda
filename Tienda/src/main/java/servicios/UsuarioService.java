@@ -122,5 +122,24 @@ public class UsuarioService {
 	public List<Direccion> listaDireccionesUsuario(@QueryParam("cedula")String cedula) {
 		return on.listaDireccionesUsuario(cedula);
 	}
+	
+	@GET
+	@Path("/listarTarjetasUsuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<Tarjeta>listarTarjetasUsuario(@QueryParam("cedula")String cedula){
+		return on.listarTarjetasUsuario(cedula);
+	}
+	
+	@GET
+	@Path("/listarDireccionesUsuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<Direccion>listarDireccionesUsuario(@QueryParam("cedula")String cedula){
+		return on.listaDireccionesUsuario(cedula);
+	}
+	
+	
+	
 
 }

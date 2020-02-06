@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import modelo.Detalle;
+import modelo.Pelicula;
 
 public class DetalleDAO {
 	@Inject
@@ -17,5 +18,20 @@ public class DetalleDAO {
 		Query q = entityManager.createQuery(jpql, Detalle.class);
 		List<Detalle> detalles = q.getResultList();
 		return detalles;
+	}
+	
+	public Detalle buscar(int id) {
+		Detalle p;
+		p = entityManager.find(Detalle.class, id);
+		return p;
+	}
+	
+	public void actualizar(Detalle p) {
+		entityManager.merge(p);
+	}
+	
+
+	public void borrar(int id) {
+		entityManager.remove(buscar(id));
 	}
 }

@@ -3,9 +3,11 @@ package on;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 
 import dao.CarritoDAO;
 import dao.DetalleDAO;
@@ -36,10 +38,10 @@ public class TiendaON {
 
 	@Inject
 	private DetalleDAO detalleDAO;
-	
+
 	@Inject
 	private TarjetaDAO tarjetaDAO;
-	
+
 	@Inject
 	private DireccionDAO direccionDAO;
 
@@ -76,9 +78,9 @@ public class TiendaON {
 	}
 
 	public void agregarCarrito(String cedula, int idP, int cantidad) throws Exception {
+		boolean crear = true;
 		Usuario usuario = usuarioDAO.buscar(cedula);
 		Carrito carrito2 = null;
-
 		if (usuario.getCarritos() == null) {
 			usuario.setCarritos(new ArrayList<Carrito>());
 		}
@@ -94,17 +96,35 @@ public class TiendaON {
 			carrito2.setDetalles(new ArrayList<Detalle>());
 			usuario.getCarritos().add(carrito2);
 		}
-
 		Detalle detalle = new Detalle();
-
 		Pelicula pelicula = peliculaDAO.buscar(idP);
 		if (pelicula != null) {
-
-			detalle.setPelicula(pelicula);
-			detalle.setCantidad(cantidad);
-			detalle.setPrecio(pelicula.getPrecio() * cantidad);
-			carrito2.getDetalles().add(detalle);
-			usuarioDAO.actualizar(usuario);
+			if (pelicula.getCantidad() > cantidad) {
+				for (Detalle detalle2 : carrito2.getDetalles()) {
+					System.out.println(detalle2.getPelicula().getId() + "   ----" + idP);
+					if (detalle2.getPelicula().getId() == idP) {
+						System.out.println("Igual " + detalle2);
+						// detalleDAO.buscar(detalle2.getId());
+						Detalle detalle3 = new Detalle();
+						detalle3.setId(detalle2.getId());
+						detalle3.setCantidad(cantidad + detalle2.getCantidad());
+						detalle3.setPrecio(pelicula.getPrecio() * (cantidad + detalle2.getCantidad()));
+						detalle3.setPelicula(pelicula);
+						detalleDAO.actualizar(detalle3);
+						crear = false;
+					}
+				}
+				if (crear) {
+					detalle.setPelicula(pelicula);
+					detalle.setCantidad(cantidad);
+					detalle.setPrecio(pelicula.getPrecio() * cantidad);
+					carrito2.getDetalles().add(detalle);
+					usuarioDAO.actualizar(usuario);
+				}
+			} else {
+				new Exception("fuera de stock");
+				System.out.println("fuer");
+			}
 		} else {
 			new Exception("Producto no existe");
 		}
@@ -126,21 +146,32 @@ public class TiendaON {
 		if (carrito2 == null) {
 			return false;
 		}
+		if (carrito2.getDetalles().isEmpty()) {
+			return false;
+		}
 		double suma = 0.0;
+	
 		for (Detalle detalle : carrito2.getDetalles()) {
 			suma = suma + detalle.getPrecio();
+			System.out.println("Stockkkkasfsd");
+			System.out.println("stock" + detalle.getPelicula().getCantidad());
+			System.out.println("stock2" + detalle.getCantidad());
 			detalle.getPelicula().setVendidos(detalle.getPelicula().getVendidos() + detalle.getCantidad());
 			if (detalle.getPelicula().getCantidad() > detalle.getCantidad()) {
 				detalle.getPelicula().setCantidad(detalle.getPelicula().getCantidad() - detalle.getCantidad());
+				System.out.println("-> Stockkkk");
+				//
+				carrito2.setTotal(suma);
+				carrito2.setEstado(true);
+				usuario.setCompras(usuario.getCompras() + 1);
+				usuarioDAO.actualizar(usuario);
+				System.out.println(usuario.getCompras());
 			} else {
 				new Exception("fuera de stock");
+				System.out.println("fuer");
 			}
 		}
-		carrito2.setTotal(suma);
-		carrito2.setEstado(true);
-		usuario.setCompras(usuario.getCompras() + 1);
-		usuarioDAO.actualizar(usuario);
-		System.out.println(usuario.getCompras());
+
 		return true;
 	}
 
@@ -308,36 +339,46 @@ public class TiendaON {
 		}
 		return usuario.getDirecciones();
 	}
-	
+
 	public String eliminarTarjeta(int id) {
-	    try {
-	      System.out.println("ID a Eliminar "+id);
-	      System.out.println("--> "+tarjetaDAO.borrar(id));
-	      
-	      return "Tarjeta eliminada";
-	    } catch (Exception e) { 
-	      return e.getStackTrace().toString();
-	    }
-	  }
-	
+		try {
+			System.out.println("ID a Eliminar " + id);
+			System.out.println("--> " + tarjetaDAO.borrar(id));
+
+			return "Tarjeta eliminada";
+		} catch (Exception e) {
+			return e.getStackTrace().toString();
+		}
+	}
+
 	public String eliminarDireccion(int id) {
-	    try {
-	      System.out.println("ID a Eliminar "+id);
-	      System.out.println("--> "+direccionDAO.borrar(id));
-	      
-	      return "Direccion eliminada";
-	    } catch (Exception e) { 
-	      return e.getStackTrace().toString();
-	    }
-	  }
-	
-	public List<Pelicula>buscarPeliculas(String titulo){
+		try {
+			System.out.println("ID a Eliminar " + id);
+			System.out.println("--> " + direccionDAO.borrar(id));
+
+			return "Direccion eliminada";
+		} catch (Exception e) {
+			return e.getStackTrace().toString();
+		}
+	}
+
+	public List<Pelicula> buscarPeliculas(String titulo) {
 		return peliculaDAO.buscarPelicula(titulo);
 	}
 	
-
-
+	public List<Direccion>listarDireccionesUsuario(String cedula){
+		List<Direccion> direcciones= new ArrayList<Direccion>();
+		Usuario usu=usuarioDAO.buscar(cedula);
+		direcciones=usu.getDirecciones();
+		return direcciones;
+	}
 	
+	public List<Tarjeta>listarTarjetasUsuario(String cedula){
+		List<Tarjeta> tarjeta= new ArrayList<Tarjeta>();
+		Usuario u=usuarioDAO.buscar(cedula);
+		tarjeta=u.getTarjetas();
+		return tarjeta;
+	}
 	
 	
 
