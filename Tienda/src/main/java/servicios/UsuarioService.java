@@ -139,7 +139,19 @@ public class UsuarioService {
 		return on.listaDireccionesUsuario(cedula);
 	}
 	
+	@GET
+	@Path("/votacion")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String ControlVoto(@QueryParam("cedula")String cedula,@QueryParam("idP") int idP,@QueryParam("estado")  boolean estado) {
+		try {
+			on.ControlVoto(cedula, idP, estado);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return "voto agregado";
+		
+	}
 	
 	
-
 }

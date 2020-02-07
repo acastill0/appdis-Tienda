@@ -23,6 +23,7 @@ import modelo.Pelicula;
 import modelo.Producto;
 import modelo.Tarjeta;
 import modelo.Usuario;
+import modelo.Voto;
 
 @Stateless
 public class TiendaON {
@@ -150,7 +151,7 @@ public class TiendaON {
 			return false;
 		}
 		double suma = 0.0;
-	
+
 		for (Detalle detalle : carrito2.getDetalles()) {
 			suma = suma + detalle.getPrecio();
 			System.out.println("Stockkkkasfsd");
@@ -365,21 +366,74 @@ public class TiendaON {
 	public List<Pelicula> buscarPeliculas(String titulo) {
 		return peliculaDAO.buscarPelicula(titulo);
 	}
-	
-	public List<Direccion>listarDireccionesUsuario(String cedula){
-		List<Direccion> direcciones= new ArrayList<Direccion>();
-		Usuario usu=usuarioDAO.buscar(cedula);
-		direcciones=usu.getDirecciones();
+
+	public List<Direccion> listarDireccionesUsuario(String cedula) {
+		List<Direccion> direcciones = new ArrayList<Direccion>();
+		Usuario usu = usuarioDAO.buscar(cedula);
+		direcciones = usu.getDirecciones();
 		return direcciones;
 	}
-	
-	public List<Tarjeta>listarTarjetasUsuario(String cedula){
-		List<Tarjeta> tarjeta= new ArrayList<Tarjeta>();
-		Usuario u=usuarioDAO.buscar(cedula);
-		tarjeta=u.getTarjetas();
+
+	public List<Tarjeta> listarTarjetasUsuario(String cedula) {
+		List<Tarjeta> tarjeta = new ArrayList<Tarjeta>();
+		Usuario u = usuarioDAO.buscar(cedula);
+		tarjeta = u.getTarjetas();
 		return tarjeta;
 	}
-	
-	
+
+	public boolean ControlVoto(String cedula, int idP, boolean estado) {
+		System.out.println("entro1");
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		Pelicula pelicula = peliculaDAO.buscar(idP);
+		System.out.println("entro2");
+
+		if (usuario.getVotos().isEmpty()) {
+			System.out.println("no hay votos");
+			Voto voto3 = new Voto();
+			voto3.setEstado(true);
+			voto3.setIdP(idP);
+			usuario.getVotos().add(voto3);
+			pelicula.setVotacion(pelicula.getVotacion() + 1);
+			peliculaDAO.actualizar(pelicula);
+			usuarioDAO.actualizar(usuario);
+		} else {
+			for (Voto voto : usuario.getVotos()) {
+				if (voto.getIdP() == idP) {
+					if (voto.isEstado()) {
+						System.out.println("1");
+						voto.setEstado(false);
+						pelicula.setVotacion(pelicula.getVotacion() - 1);
+						peliculaDAO.actualizar(pelicula);
+						return true;
+					} else {
+						System.out.println("2");
+						voto.setEstado(true);
+						pelicula.setVotacion(pelicula.getVotacion() + 1);
+						peliculaDAO.actualizar(pelicula);
+						return true;
+					}
+				}
+				if (voto.getIdP() != idP) {
+					System.out.println("if 3 no existe");
+					System.out.println("no existe");
+					return false;
+				}
+
+				System.out.println("agragar voto");
+				Voto voto2 = new Voto();
+				voto2.setEstado(estado);
+				voto2.setId(idP);
+				usuario.getVotos().add(voto2);
+				System.out.println("asfs  " + usuario.getVotos().add(voto2));
+				usuarioDAO.actualizar(usuario);
+				return true;
+			}
+
+			System.out.println(peliculaDAO.buscar(idP) + " pelicula465");
+
+		}
+
+		return false;
+	}
 
 }

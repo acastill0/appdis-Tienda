@@ -37,6 +37,10 @@ public class Usuario {
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario")
 	private List<Tarjeta> tarjetas;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario")
+	private List<Voto> votos;
 
 	public String getCedula() {
 		return cedula;
@@ -134,11 +138,25 @@ public class Usuario {
 		this.tarjetas = tarjetas;
 	}
 
+	public List<Voto> getVotos() {
+		return votos;
+	}
+
+	public void setVotos(List<Voto> voto) {
+		this.votos = voto;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono
 				+ ", correo=" + correo + ", password=" + password + ", admin=" + admin + ", cliente=" + cliente
 				+ ", compras=" + compras + ", carritos=" + carritos + ", direcciones=" + direcciones + ", tarjetas="
-				+ tarjetas + "]";
+				+ tarjetas + ", voto=" + votos + "]";
 	}
+
+
+	
+	
+
+
 }
