@@ -31,6 +31,14 @@ public class Usuario {
 	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinColumn(name = "usuario")
 	private List<Carrito> carritos;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario")
+	private List<Direccion> direcciones;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario")
+	private List<Tarjeta> tarjetas;
 
 	public String getCedula() {
 		return cedula;
@@ -102,6 +110,24 @@ public class Usuario {
 
 	public void setCarritos(List<Carrito> carritos) {
 		this.carritos = carritos;
+	}
+
+	
+	
+	public List<Direccion> getDirecciones() {
+		return direcciones;
+	}
+
+	public void setDirecciones(List<Direccion> direcciones) {
+		this.direcciones = direcciones;
+	}
+	
+	public List<Tarjeta> getTarjetas() {
+		return tarjetas;
+	}
+
+	public void setTarjetas(List<Tarjeta> tarjetas) {
+		this.tarjetas = tarjetas;
 	}
 
 	@Override

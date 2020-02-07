@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,12 @@ import javax.persistence.OneToMany;
  * @author: Lucy Garay, Adriana Castillo
  * */
 @Entity
-public class Carrito {
+public class Carrito implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

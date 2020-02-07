@@ -14,8 +14,10 @@ import dao.UsuarioDAO;
 import modelo.Carrito;
 import modelo.Compra;
 import modelo.Detalle;
+import modelo.Direccion;
 import modelo.Pelicula;
 import modelo.Producto;
+import modelo.Tarjeta;
 import modelo.Usuario;
 
 /*
@@ -316,5 +318,48 @@ public class TiendaON {
 	public List<Detalle> listadoDetalles() {
 		return detalleDAO.ListadoDetalles();
 	}
+	public void agregarTarjetasUsuario(String cedula, String fechaVencimiento, String numero, String titutar) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		System.out.println(usuario);
+		Tarjeta detalle = new Tarjeta();
+		if (usuario != null) {
+			detalle.setFechaVencimiento(fechaVencimiento);
+			detalle.setNumero(numero);
+			detalle.setTitular(titutar);
+			usuario.getTarjetas().add(detalle);
+			usuarioDAO.actualizar(usuario);
+		} else {
+			new Exception("Usuario no existe");
+		}
+	}
 
+	public void agregarDireccionesUsuario(String cedula, String direccion) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		System.out.println(usuario);
+		Direccion detalle = new Direccion();
+		if (usuario != null) {
+			detalle.setDirecciones(direccion);
+			usuario.getDirecciones().add(detalle);
+			usuarioDAO.actualizar(usuario);
+		} else {
+			new Exception("Usuario no existe");
+		}
+	}
+
+	public List<Tarjeta> listaTarjetasUsuario(String cedula) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario == null) {
+			return new ArrayList<Tarjeta>();
+		}
+		return usuario.getTarjetas();
+	}
+
+	public List<Direccion> listaDireccionesUsuario(String cedula) {
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		if (usuario == null) {
+			return new ArrayList<Direccion>();
+		}
+		return usuario.getDirecciones();
+	}
+	
 }

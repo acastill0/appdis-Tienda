@@ -13,6 +13,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import dao.UsuarioDAO;
+import modelo.Direccion;
+import modelo.Tarjeta;
 import modelo.Usuario;
 import on.TiendaON;
 
@@ -92,5 +94,45 @@ public class UsuarioService {
 	public Usuario buscarCliente(@QueryParam("correo") String correo, @QueryParam("pass") String pass) {
 		return on.logueadoUsuario(correo, pass);
 	}
-
+	
+	@POST
+	@Path("agregarTarjeta")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String agregarTarjetasUsuario(@QueryParam("cedula")String cedula, Tarjeta tarjeta ) {
+		try {
+			on.agregarTarjetasUsuario(cedula, tarjeta.getFechaVencimiento(), tarjeta.getNumero(), tarjeta.getTitular());
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return "Tarjeta agregada";
+	}
+	@POST
+	@Path("agregarDireccion")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String agregarDireccionesUsuario(@QueryParam("cedula")String cedula,Direccion direccion) {
+		try {
+			on.agregarDireccionesUsuario(cedula, direccion.getDirecciones());
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return "Direccion agregada";
+	}
+	
+	@GET
+	@Path("/listarTarjetasUsuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<Tarjeta>listarTarjetasUsuario(@QueryParam("cedula")String cedula){
+		return on.listaTarjetasUsuario(cedula);
+	}
+	
+	@GET
+	@Path("/listarDireccionesUsuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public List<Direccion>listarDireccionesUsuario(@QueryParam("cedula")String cedula){
+		return on.listaDireccionesUsuario(cedula);
+	}
 }
