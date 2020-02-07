@@ -16,14 +16,19 @@ public class CarritoDAO {
 	@Inject
 	private EntityManager em;
 
-
 	public List<Carrito> comprasCliente() {
 		String jpql = "SELECT u FROM Carrito u WHERE u.estado = :p";
 		Query q = em.createQuery(jpql, Carrito.class);
 		q.setParameter("p", true);
-		//q.setParameter("p", true);
+		// q.setParameter("p", true);
 		List<Carrito> carritos = q.getResultList();
-		return carritos;	
+		return carritos;
 	}
-	
+
+	public Carrito buscar(int id) {
+		Carrito p;
+		p = em.find(Carrito.class, id);
+		return p;
+	}
+
 }

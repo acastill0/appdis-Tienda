@@ -121,4 +121,11 @@ public class ComprasService {
 	    return r;
 	  }
 	
+	@GET
+	@Path("ListaCarritoDetalle")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Producto> listarDetalleCompras(@QueryParam("idC")int idC) {
+		return tiendaON.listarDetalleCompras(idC);
+	}
+	
 }

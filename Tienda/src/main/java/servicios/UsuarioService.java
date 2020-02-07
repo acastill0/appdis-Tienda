@@ -152,6 +152,13 @@ public class UsuarioService {
 		return "voto agregado";
 		
 	}
+	@GET
+	@Path("/votacionEstado")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public boolean estadoProductoUsuario(@QueryParam("cedula")String cedula,@QueryParam("idP") int idP) {
+		return on.estadoProductoUsuario(cedula, idP);
+	}
 	
 	
 }

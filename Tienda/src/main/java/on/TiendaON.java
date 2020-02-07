@@ -1,5 +1,6 @@
 package on;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import dao.DireccionDAO;
 import dao.PeliculaDAO;
 import dao.TarjetaDAO;
 import dao.UsuarioDAO;
+import dao.VotoDAO;
 import modelo.Carrito;
 import modelo.Compra;
 import modelo.Detalle;
@@ -45,6 +47,9 @@ public class TiendaON {
 
 	@Inject
 	private DireccionDAO direccionDAO;
+
+	@Inject
+	private VotoDAO votoDAO;
 
 	public void crearUsu(Usuario u) {
 		usuarioDAO.insertar(u);
@@ -434,6 +439,38 @@ public class TiendaON {
 		}
 
 		return false;
+	}
+
+	public boolean estadoProductoUsuario(String cedula, int idP) {
+		System.out.println("entro1");
+		Usuario usuario = usuarioDAO.buscar(cedula);
+		for (Voto voto : usuario.getVotos()) {
+			if (voto.getIdP() == idP) {
+				return voto.isEstado();
+			} else {
+				System.out.println("no hay voto ");
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public List<Producto> listarDetalleCompras(int idC) {
+		List<Producto> resultado = new ArrayList<>();
+		Carrito carrito = carritoDAO.buscar(idC);
+		for (Detalle det : carrito.getDetalles()) {
+			Producto p = new Producto();
+			p.setPrecioTotal(det.getPrecio());
+			p.setCantidadTotal(det.getCantidad());
+			Pelicula pelicula = peliculaDAO.buscar(det.getPelicula().getId());
+			System.out.println("aaaa" + peliculaDAO.buscar(det.getPelicula().getId()));
+			p.setTitulo(det.getPelicula().getTitulo());
+			p.setImagen(det.getPelicula().getImagen());
+			resultado.add(p);
+
+			break;
+		}
+		return resultado;
 	}
 
 }
