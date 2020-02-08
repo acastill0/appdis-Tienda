@@ -36,4 +36,10 @@ public class CarritoDAO {
 		return carritos;	
 	}
 	
+	public Carrito buscar(int id) {
+		Carrito p;
+		p = em.find(Carrito.class, id);
+		return p;
+	}
+	
 }

@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +7,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import modelo.Carrito;
 import modelo.Usuario;
 
 /*
@@ -57,16 +55,6 @@ public class UsuarioDAO {
 		Query q = em.createQuery(jpql, Usuario.class);
 		List<Usuario> usuarios = q.getResultList();
 		return usuarios;
-	}
-	/**
-     * Método que lista los usuarios buscadoss
-     * @return Lista de usuarios buscados
-     */
-	public List<Usuario> listadoUsuarioBuscado(String cedula) {
-		Usuario ub = buscar(cedula);
-		List<Usuario> usuariosB = new ArrayList<Usuario>();
-		usuariosB.add(ub);
-		return usuariosB;
 	}
 	
 	/**
@@ -160,5 +148,13 @@ public class UsuarioDAO {
 			return null;
 		}
 	}
-
+	/**
+     * Método retorna una lista de Usuarios que más compran
+     *  @return Los usuarios con más compras
+     */
+	public List<Usuario> listaUsuariosComprasTop() {
+		String jpql = "SELECT u FROM Usuario u WHERE u.cliente= true ORDER BY u.compras DESC";
+		Query query = em.createQuery(jpql, Usuario.class);
+		return query.getResultList();
+	}
 }

@@ -8,11 +8,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/index.xhtml">
-	<ui:define name="titulo">Películas Más Vendidas</ui:define>
+	<ui:define name="titulo">Películas Más Votadas</ui:define>
 	<ui:define name="formulario">
 		<div>
 
-			<h:dataTable value="#{peliculaController.peliculasTopVentas}" var="p">
+			<h:dataTable value="#{peliculaController.peliculasTopVotos}" var="p">
 				<h:column>
 					<f:facet name="header">ID</f:facet>
 				#{p.id}
@@ -23,8 +23,8 @@
 			</h:column>
 
 				<h:column>
-					<f:facet name="header">NÚMERO DE COMPRAS</f:facet>
-				#{p.vendidos}
+					<f:facet name="header">NÚMERO DE VOTOS</f:facet>
+				#{p.votacion}
 			</h:column>
 
 			</h:dataTable>
@@ -33,10 +33,10 @@
 		<h:form>
 			<center>
 				<h:commandButton
-					action="#{peliculaController.peliculasMasVendidas()}"
+					action="#{peliculaController.peliculasMasVotadas()}"
 					value="Cargar" class="btn" />
 				<input type="button" value="Gráfico"
-					onclick="window.open('topVendidos.xhtml','_blank','height=505,width=620,top=250, left=500')" class="btn"/>
+					onclick="window.open('topVotos.xhtml','_blank','height=505,width=620,top=250, left=500')" class="btn"/>
 
 			</center>
 		</h:form>

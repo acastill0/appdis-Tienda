@@ -27,6 +27,7 @@ public class Usuario {
 	private String password;
 	private boolean admin;
 	private boolean cliente;
+	private int compras;
 	
 	@OneToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
 	@JoinColumn(name = "usuario")
@@ -39,6 +40,10 @@ public class Usuario {
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario")
 	private List<Tarjeta> tarjetas;
+	
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario")
+	private List<Voto> votos;
 
 	public String getCedula() {
 		return cedula;
@@ -128,6 +133,23 @@ public class Usuario {
 
 	public void setTarjetas(List<Tarjeta> tarjetas) {
 		this.tarjetas = tarjetas;
+	}
+	
+	public int getCompras() {
+		return compras;
+	}
+
+	public void setCompras(int compras) {
+		this.compras = compras;
+	}
+	
+
+	public List<Voto> getVotos() {
+		return votos;
+	}
+
+	public void setVotos(List<Voto> votos) {
+		this.votos = votos;
 	}
 
 	@Override

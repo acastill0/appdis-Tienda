@@ -16,6 +16,7 @@ import dao.UsuarioDAO;
 import modelo.Direccion;
 import modelo.Tarjeta;
 import modelo.Usuario;
+import modelo.Voto;
 import on.TiendaON;
 
 /*
@@ -27,19 +28,21 @@ import on.TiendaON;
 public class UsuarioService {
 	@Inject
 	private TiendaON on;
+
 	// private UsuarioDAO usuarioDAO;
 	/**
-     * Método que aobtiene todos los usuarios
-     */
+	 * Método que aobtiene todos los usuarios
+	 */
 	@GET
 	@Path("getUsuarios")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Usuario> getUsuario() {
 		return on.listadoUsuarios();
 	}
+
 	/**
-     * Método que permite crear usuarios
-     */
+	 * Método que permite crear usuarios
+	 */
 	@GET
 	@Path("setUsuarios")
 	@Produces("application/json")
@@ -68,9 +71,10 @@ public class UsuarioService {
 		}
 		return r;
 	}
+
 	/**
-     * Método que permite al usuario loguearse en la app
-     */
+	 * Método que permite al usuario loguearse en la app
+	 */
 	@GET
 	@Path("loguinUsu")
 	@Produces("application/json")
@@ -84,9 +88,10 @@ public class UsuarioService {
 		}
 		return res;
 	}
+
 	/**
-     * Método que busca un Cliente
-     */
+	 * Método que busca un Cliente
+	 */
 	@GET
 	@Path("buscarCliente")
 	@Produces("application/json")
@@ -94,12 +99,12 @@ public class UsuarioService {
 	public Usuario buscarCliente(@QueryParam("correo") String correo, @QueryParam("pass") String pass) {
 		return on.logueadoUsuario(correo, pass);
 	}
-	
+
 	@POST
 	@Path("agregarTarjeta")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String agregarTarjetasUsuario(@QueryParam("cedula")String cedula, Tarjeta tarjeta ) {
+	public String agregarTarjetasUsuario(@QueryParam("cedula") String cedula, Tarjeta tarjeta) {
 		try {
 			on.agregarTarjetasUsuario(cedula, tarjeta.getFechaVencimiento(), tarjeta.getNumero(), tarjeta.getTitular());
 		} catch (Exception e) {
@@ -107,11 +112,12 @@ public class UsuarioService {
 		}
 		return "Tarjeta agregada";
 	}
+
 	@POST
 	@Path("agregarDireccion")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String agregarDireccionesUsuario(@QueryParam("cedula")String cedula,Direccion direccion) {
+	public String agregarDireccionesUsuario(@QueryParam("cedula") String cedula, Direccion direccion) {
 		try {
 			on.agregarDireccionesUsuario(cedula, direccion.getDirecciones());
 		} catch (Exception e) {
@@ -119,20 +125,43 @@ public class UsuarioService {
 		}
 		return "Direccion agregada";
 	}
-	
+
 	@GET
 	@Path("/listarTarjetasUsuario")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<Tarjeta>listarTarjetasUsuario(@QueryParam("cedula")String cedula){
+	public List<Tarjeta> listarTarjetasUsuario(@QueryParam("cedula") String cedula) {
 		return on.listaTarjetasUsuario(cedula);
 	}
-	
+
 	@GET
 	@Path("/listarDireccionesUsuario")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<Direccion>listarDireccionesUsuario(@QueryParam("cedula")String cedula){
+	public List<Direccion> listarDireccionesUsuario(@QueryParam("cedula") String cedula) {
 		return on.listaDireccionesUsuario(cedula);
+	}
+
+	@POST
+	@Path("votar")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public boolean ControlVoto(@QueryParam("cedula") String cedula, Voto voto) {
+		System.out.println("---> LLEGA "+voto.toString());
+		try {
+			on.ControlVoto(cedula, voto.getIdP(), voto.isEstado());
+			return true;
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return false;
+	}
+	
+	@GET
+	@Path("/votacionEstado")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public boolean estadoProductoUsuario(@QueryParam("cedula")String cedula,@QueryParam("idP") int idP) {
+		return on.estadoProductoUsuario(cedula, idP);
 	}
 }

@@ -41,7 +41,9 @@ public class DetalleDAO {
 		d = entityManager.find(Detalle.class, id);
 		return d;
 	}
-
+	public void actualizar(Detalle p) {
+		entityManager.merge(p);
+	}
 	/**
 	 * Método que borra el Detalle
 	 */

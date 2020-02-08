@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/index.xhtml">
+	<ui:define name="titulo">Clientes Que Más Compran</ui:define>
+
+	<ui:define name="formulario">
+		<div>
+			<h:dataTable value="#{usuarioController.usuariosCompras}" var="u">
+				<h:column>
+					<f:facet name="header">CEDULA</f:facet>
+				#{u.cedula}
+			</h:column>
+				<h:column>
+					<f:facet name="header">NOMBRE</f:facet>
+				#{u.nombre}
+				#{u.apellido}
+				
+			</h:column>
+
+				<h:column>
+					<f:facet name="header">NÚMERO DE COMPRAS</f:facet>
+				#{u.compras}
+			</h:column>
+			</h:dataTable>
+		</div>
+		<h:form>
+			<center>
+				<h:commandButton action="#{usuarioController.compras()}"
+					value="Cargar" class="btn" />
+				<input type="button" value="Gráfico"
+					onclick="window.open('topCompras.xhtml','_blank','height=505,width=620,top=250, left=500')"
+					class="btn" />
+
+			</center>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+<!-- ################################################################################################ -->

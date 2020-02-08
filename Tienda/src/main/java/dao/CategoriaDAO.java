@@ -61,14 +61,5 @@ public class CategoriaDAO {
 		}
 		return categorias;
 	}
-	/**
-     * Método que devuelve la lista de las Categorias buscadas
-     * @return Las Categorías buscadas
-     */
-	public List<Categoria> listadoCategoriaBuscado(int id) {
-		Categoria cb = buscar(id);
-		List<Categoria> categoriaB = new ArrayList<Categoria>();
-		categoriaB.add(cb);
-		return categoriaB;
-	}
+	
 }

@@ -141,6 +141,7 @@ public class Pelicula {
 	private int votacion;
 	private double precio;
 	private int cantidad;
+	private int vendidos;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria")
@@ -205,6 +206,14 @@ public class Pelicula {
 		this.categoria = categoria;
 	}
 
+
+	public int getVendidos() {
+		return vendidos;
+	}
+
+	public void setVendidos(int vendidos) {
+		this.vendidos = vendidos;
+	}
 
 	@Override
 	public String toString() {
