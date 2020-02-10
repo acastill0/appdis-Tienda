@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/index.xhtml">
+<ui:composition template="/plantilla.xhtml">
 	<ui:define name="titulo">Actualizar Película</ui:define>
 
 	<ui:define name="formulario">
@@ -43,13 +43,6 @@
 				</h:panelGrid>
 
 				<h:panelGrid columns="3">
-					<h:outputLabel value="Vatación" for="votacion" />
-					<h:inputText value="#{peliculaController.p.votacion}" id="votacion"
-						class="two_quarter" />
-					<h:message for="votacion" />
-				</h:panelGrid>
-
-				<h:panelGrid columns="3">
 					<h:outputLabel value="Precio" for="precio" />
 					<h:inputText value="#{peliculaController.p.precio}" id="precio"
 						class="two_quarter" />
@@ -66,7 +59,7 @@
 				<center>
 					<div>
 						<h:commandButton action="#{peliculaController.buscar()}"
-							value="Buscar" class="btn" />
+							value="Buscar" class="btn" style="margin-right:5px"/>
 
 						<h:commandButton action="#{peliculaController.actualizar()}"
 							value="Actualizar" class="btn" />

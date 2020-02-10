@@ -104,7 +104,9 @@ public class TiendaON {
 		usuariosB.add(ub);
 		return usuariosB;
 	}
-
+	public Usuario logueadoAdmin(String correo, String pass) {
+		return usuarioDAO.logueadoAdmin(correo, pass);
+	}
 	/* CATEGORIA */
 
 	/**
@@ -223,6 +225,7 @@ public class TiendaON {
 			pro.setCategoria(pel.getCategoria().getNombre());
 			pro.setPrecio(pel.getPrecio());
 			pro.setVotacion(pel.getVotacion());
+			pro.setCantidad(pel.getCantidad());
 			return pro;
 		}
 		return null;
@@ -382,49 +385,6 @@ public class TiendaON {
 		}
 	}
 
-	/*
-	 * public void agregarCarrito(String cedula, int idP, int cantidad) throws
-	 * Exception { Usuario usuario = usuarioDAO.buscar(cedula); Carrito carrito2 =
-	 * null;
-	 * 
-	 * if (usuario.getCarritos() == null) { usuario.setCarritos(new
-	 * ArrayList<Carrito>()); } for (Carrito carrito : usuario.getCarritos()) { if
-	 * (!carrito.isEstado()) { carrito2 = carrito; break; } } if (carrito2 == null)
-	 * { carrito2 = new Carrito(); carrito2.setFecha((new Date()).toString());
-	 * carrito2.setDetalles(new ArrayList<Detalle>());
-	 * usuario.getCarritos().add(carrito2); }
-	 * 
-	 * Detalle detalle = new Detalle();
-	 * 
-	 * Pelicula pelicula = peliculaDAO.buscar(idP); if (pelicula != null) {
-	 * 
-	 * detalle.setPelicula(pelicula); detalle.setCantidad(cantidad);
-	 * detalle.setPrecio(pelicula.getPrecio() * cantidad);
-	 * carrito2.getDetalles().add(detalle); usuarioDAO.actualizar(usuario); } else {
-	 * new Exception("Producto no existe"); }
-	 * 
-	 * }
-	 */
-
-	/*
-	 * public boolean finalizarCompra(String cedula) throws Exception { Usuario
-	 * usuario = usuarioDAO.buscar(cedula); Carrito carrito2 = null; if
-	 * (usuario.getCarritos() == null) { return false; // usuario.setCarritos(new
-	 * ArrayList<Carrito>()); } for (Carrito carrito : usuario.getCarritos()) { if
-	 * (!carrito.isEstado()) { carrito2 = carrito; break; } } if (carrito2 == null)
-	 * { return false; } double suma = 0.0; for (Detalle detalle :
-	 * carrito2.getDetalles()) { suma = suma + detalle.getPrecio();
-	 * detalle.getPelicula().setVotacion(detalle.getPelicula().getVotacion() +
-	 * detalle.getCantidad()); if (detalle.getPelicula().getCantidad() >
-	 * detalle.getCantidad()) {
-	 * detalle.getPelicula().setCantidad(detalle.getPelicula().getCantidad() -
-	 * detalle.getCantidad()); } else { new Exception("fuera de stock"); }
-	 * 
-	 * } carrito2.setTotal(suma); carrito2.setEstado(true);
-	 * 
-	 * usuarioDAO.actualizar(usuario); return true; }
-	 */
-
 	/**
 	 * Método que finaliza una compra de un cliente
 	 */
@@ -465,41 +425,6 @@ public class TiendaON {
 		usuarioDAO.actualizar(usuario);
 		return true;
 	}
-
-	/*
-	 * public boolean finalizarCompra(String cedula) throws Exception { Usuario
-	 * usuario = usuarioDAO.buscar(cedula); Carrito carrito2 = null; if
-	 * (usuario.getCarritos() == null) { return false; // usuario.setCarritos(new
-	 * ArrayList<Carrito>()); } for (Carrito carrito : usuario.getCarritos()) { if
-	 * (!carrito.isEstado()) { carrito2 = carrito; break; } } if (carrito2 == null)
-	 * { return false; } if (carrito2.getDetalles().isEmpty()) { return false; }
-	 * double suma = 0.0; try {
-	 * 
-	 * 
-	 * for (Detalle detalle : carrito2.getDetalles()) {
-	 * System.out.println("DEtalles "+carrito2.getDetalles()); suma = suma +
-	 * detalle.getPrecio();
-	 * detalle.getPelicula().setVendidos(detalle.getPelicula().getVendidos() +
-	 * detalle.getCantidad());
-	 * 
-	 * if (detalle.getPelicula().getCantidad() > detalle.getCantidad()) {
-	 * System.out.println("Valida Cantidad");
-	 * detalle.getPelicula().setCantidad(detalle.getPelicula().getCantidad() -
-	 * detalle.getCantidad()); System.out.println("1"); carrito2.setTotal(suma);
-	 * System.out.println("2");
-	 * 
-	 * carrito2.setEstado(true); System.out.println("3");
-	 * 
-	 * usuario.setCompras(usuario.getCompras() + 1); System.out.println("4");
-	 * 
-	 * usuarioDAO.actualizar(usuario); System.out.println("5");
-	 * 
-	 * 
-	 * } else { new Exception("fuera de stock"); System.out.println("fuer"); } }
-	 * 
-	 * 
-	 * return true; }
-	 */
 
 	/**
 	 * Método que lista las compras de un Cliente
@@ -719,11 +644,9 @@ public class TiendaON {
 	}
 
 	public boolean estadoProductoUsuario(String cedula, int idP) {
-		System.out.println("entro1");
 		Usuario usuario = usuarioDAO.buscar(cedula);
 		for (Voto voto : usuario.getVotos()) {
 			if (voto.getIdP() == idP) {
-				System.out.println("REtorna voto bol");
 				return voto.isEstado();
 			}
 		}
@@ -738,10 +661,9 @@ public class TiendaON {
 			Producto p = new Producto();
 			p.setPrecioTotal(det.getPrecio());
 			p.setCantidadTotal(det.getCantidad());
-			Pelicula pelicula = peliculaDAO.buscar(det.getPelicula().getId());
-			System.out.println("aaaa" + peliculaDAO.buscar(det.getPelicula().getId()));
 			p.setTitulo(det.getPelicula().getTitulo());
 			p.setImagen(det.getPelicula().getImagen());
+			p.setCategoria(det.getPelicula().getCategoria().getNombre());
 			resultado.add(p);
 		}
 		return resultado;

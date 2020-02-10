@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import dao.CategoriaDAO;
@@ -17,7 +18,7 @@ import on.TiendaON;
  * */
 @ManagedBean
 @SessionScoped
-
+@ViewScoped
 public class CategoriaController {
 
 	@Inject

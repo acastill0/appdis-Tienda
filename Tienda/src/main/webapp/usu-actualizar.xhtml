@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 
-<ui:composition template="/index.xhtml">
+<ui:composition template="/plantilla.xhtml">
 	<ui:define name="titulo">Actualizar Usuario</ui:define>
 
 	<ui:define name="formulario">
@@ -52,7 +52,7 @@
 			<center>
 				<div>
 					<h:commandButton action="#{usuarioController.buscar()}"
-						value="Buscar" class="btn"/>
+						value="Buscar" class="btn" style="margin-right:5px"/>
 					<h:commandButton action="#{usuarioController.actualizar()}"
 						value="Actualizar" class="btn" />
 				</div>

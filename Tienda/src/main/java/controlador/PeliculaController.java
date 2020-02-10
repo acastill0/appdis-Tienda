@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -21,6 +22,8 @@ import on.TiendaON;
  * @author: Lucy Garay, Adriana Castillo
  * */
 @ManagedBean
+@ViewScoped
+
 //@SessionScoped
 public class PeliculaController implements Serializable {
 
@@ -211,6 +214,7 @@ public class PeliculaController implements Serializable {
 		p.setVotacion(0);
 		p.setPrecio(0);
 		p.setCantidad(0);
+		p.setCategoria(new Categoria());
 		return null;
 	}
 
@@ -221,4 +225,3 @@ public class PeliculaController implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 }
-//

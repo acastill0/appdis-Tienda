@@ -171,6 +171,7 @@ If you don't want it to fade all elements, you have to list the ones you want to
 Delete it completely to stop fading
 --------------------------------------------------------------------------------------------------------------- */
 *, *::before, *::after{transition:all .28s ease-in-out;}
+#login{transition:all .28s ease-in-out;padding-left: 80px;padding-right: 50px;line-height: 3.8em;margin-top:120px;margin-left:120px}
 #mainav form *{transition:none !important;}
 
 

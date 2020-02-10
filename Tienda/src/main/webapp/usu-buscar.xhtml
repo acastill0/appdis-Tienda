@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/index.xhtml">
+<ui:composition template="/plantilla.xhtml">
 	<ui:define name="titulo">Buscar Usuario</ui:define>
 
 	<ui:define name="formulario">
@@ -12,10 +12,11 @@
 		<h:form>
 			<h:panelGrid columns="4">
 				<h:outputLabel value="Cédula" for="cedula" />
-				<h:inputText value="#{usuarioController.u.cedula}" id="cedula" class="two_quarter" />
+				<h:inputText value="#{usuarioController.u.cedula}" id="cedula"
+					class="two_quarter" />
 				<h:message for="cedula" />
 				<h:commandButton action="#{usuarioController.listadoBuscado()}"
-					value="Buscar" class="btn"   />
+					value="Buscar" class="btn" />
 			</h:panelGrid>
 		</h:form>
 		<div>

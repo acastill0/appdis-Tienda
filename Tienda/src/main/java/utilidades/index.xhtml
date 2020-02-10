@@ -13,15 +13,16 @@
 			<center>
 				<h:outputLabel value="Correo" for="correo" />
 			</center>
-			<h:inputText value="#{inicioSesionController.correo}" id="correo" />
+			<h:inputText value="#{inicioSesionController.correo}" id="correo"/>
 			<center>
 				<h:outputLabel value="Contraseña" for="password" />
 			</center>
 			<h:inputSecret value="#{inicioSesionController.pass}" id="password" />
-
+			
 			<div></div>
 			<center>
 				<div>
+
 					<a> </a>
 					<center>
 						<h:commandButton action="#{inicioSesionController.login()}"

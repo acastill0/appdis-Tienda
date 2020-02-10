@@ -124,6 +124,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 /*
@@ -142,7 +143,8 @@ public class Pelicula {
 	private double precio;
 	private int cantidad;
 	private int vendidos;
-
+	
+	//@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria")
 	private Categoria categoria;

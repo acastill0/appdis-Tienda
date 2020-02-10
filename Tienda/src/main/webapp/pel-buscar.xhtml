@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<ui:composition template="/index.xhtml">
+<ui:composition template="/plantilla.xhtml">
 	<ui:define name="titulo">Buscar Película</ui:define>
 	<ui:define name="formulario">
 
@@ -47,7 +47,7 @@
 			<h:column>
 					<f:facet name="header">IMAGEN</f:facet>
 					<center>
-						<h:graphicImage value="#{p.imagen}" id="imagen" width="70px" height="90px"/>
+						<h:graphicImage value="#{p.imagen}" id="imagen" style="width:120px;height:160px"/>
 					</center>
 
 				</h:column>

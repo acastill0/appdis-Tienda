@@ -15,6 +15,7 @@ import modelo.Detalle;
 import modelo.Producto;
 import modelo.Usuario;
 import on.TiendaON;
+
 /*
  * Clase de servicios para la Compra
  * @author: Lucy Garay, Adriana Castillo
@@ -24,14 +25,15 @@ public class ComprasService {
 
 	@Inject
 	private TiendaON tiendaON;
+
 	/**
-     * Método que agrega productos al carrito
-     */
+	 * Método que agrega productos al carrito
+	 */
 	@POST
 	@Path("/agregarAlCarrito")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String addCarrito(@QueryParam("cedula") String cedula,Detalle det) {
+	public String addCarrito(@QueryParam("cedula") String cedula, Detalle det) {
 		try {
 			tiendaON.agregarCarrito(cedula, det.getPelicula().getId(), det.getCantidad());
 		} catch (Exception e) {
@@ -39,10 +41,10 @@ public class ComprasService {
 		}
 		return "Carrito agregado";
 	}
-	
+
 	/**
-     * Método que finaliza la compra de un cliente
-     */
+	 * Método que finaliza la compra de un cliente
+	 */
 	@POST
 	@Path("/finCompra")
 	@Produces("application/json")
@@ -50,14 +52,17 @@ public class ComprasService {
 	public String finCompra(Usuario usuario) {
 		try {
 			tiendaON.finalizarCompra(usuario.getCedula());
+			return "Compra finalizada";
+
 		} catch (Exception e) {
 			e.getMessage();
+			return "No se ha finalizado la compra";
 		}
-		return "Compra finalizada";
 	}
+
 	/**
-     * Método que lista la compras de un cliente
-     */
+	 * Método que lista la compras de un cliente
+	 */
 	@GET
 	@Path("getCompras")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -69,9 +74,10 @@ public class ComprasService {
 			return null;
 		}
 	}
+
 	/**
-     * Método que obtiene los carritos de los clientes
-     */
+	 * Método que obtiene los carritos de los clientes
+	 */
 	@GET
 	@Path("getCarrito")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -83,9 +89,10 @@ public class ComprasService {
 			return null;
 		}
 	}
+
 	/**
-     * Método que elimina un producto del carrito de un cliente
-     */
+	 * Método que elimina un producto del carrito de un cliente
+	 */
 	@POST
 	@Path("deleteDelCarrito")
 	@Produces("application/json")
@@ -93,21 +100,21 @@ public class ComprasService {
 	public Respuesta deleteDelCar(Detalle detalle) {
 		Respuesta r = new Respuesta();
 		try {
-			System.out.println("Detalle "+detalle.getId());
+			System.out.println("Detalle " + detalle.getId());
 			tiendaON.eliminarDelCarrito(detalle.getId());
 			r.setCodigo(0);
 			r.setMensajes("OK");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			r.setCodigo(99);
 			r.setMensajes("Error al eliminar");
 		}
 		return r;
 	}
-	
+
 	@GET
-	@Path("ListaCompraDetalle")
+	@Path("listaCompraDetalle")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Producto> listarDetalleCompras(@QueryParam("idC")int idC) {
+	public List<Producto> listarDetalleCompras(@QueryParam("idC") int idC) {
 		return tiendaON.listarDetalleCompras(idC);
 	}
 }

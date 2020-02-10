@@ -1,24 +1,37 @@
 package controlador;
 
+import java.io.Serializable;
+
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import dao.UsuarioDAO;
+import modelo.Usuario;
+import on.TiendaON;
+
 /*
  * Clase que se crea para el mantenimiento del inicio de sesión en la WEB
  * @author: Lucy Garay, Adriana Castillo
  * */
 @ManagedBean
-@SessionScoped
-public class InicioSesionController {
+@ViewScoped
+
+public class InicioSesionController implements Serializable {
 	@Inject
-	private UsuarioDAO ud;
+	private TiendaON tiendaON;
 
 	private String correo;
 	private String pass;
+
+	private Usuario usuario;
+
+	@PostConstruct
+	public void init() {
+		usuario = new Usuario();
+	}
 
 	public String getCorreo() {
 		return correo;
@@ -36,14 +49,18 @@ public class InicioSesionController {
 		this.pass = pass;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	public String login() {
 
-		Boolean aux = ud.logueado(correo, pass);
-		if (aux) {
+		Usuario usuAd = tiendaON.logueadoAdmin(correo, pass);
+		if (usuAd != null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.getExternalContext().getSessionMap().put("user", correo);
 			limpiar();
-			return "inicio";
+			return "main";
 		} else {
 			FacesMessage fmss = new FacesMessage("Error", "Error de inicio de sesión");
 			FacesContext.getCurrentInstance().addMessage(null, fmss);

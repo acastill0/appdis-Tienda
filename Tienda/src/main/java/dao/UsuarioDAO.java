@@ -117,6 +117,23 @@ public class UsuarioDAO {
      * Método verifica si un correo y contraseña proporcionados son correctos
      * @return Si se ha logueado o no el cliente
      */
+	public Usuario logueadoAdmin(String correo, String pass) {
+		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p AND u.admin = :t";
+		Query q = em.createQuery(jpql, Usuario.class);
+		q.setParameter("c", correo);
+		q.setParameter("p", pass);
+		q.setParameter("t", true);
+		try {
+			Usuario u = (Usuario) q.getSingleResult();
+			return u;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	/**
+     * Método verifica si un correo y contraseña proporcionados son correctos
+     * @return Si se ha logueado o no el cliente
+     */
 	public boolean logueadoCliente(String correo, String pass) {
 		String jpql = "SELECT u FROM Usuario u WHERE u.correo = :c AND u.password = :p AND u.cliente = :t";
 		Query q = em.createQuery(jpql, Usuario.class);

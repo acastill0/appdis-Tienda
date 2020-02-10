@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import org.primefaces.model.chart.PieChartModel;
@@ -16,6 +17,8 @@ import on.TiendaON;
  * @author: Lucy Garay, Adriana Castillo
  * */
 @ManagedBean
+@ViewScoped
+
 public class UsuarioController {
 
 	@Inject
@@ -100,7 +103,7 @@ public class UsuarioController {
 		limpiar();
 		return null;
 	}
-
+	
 	public String borrar(String cedula) {
 		tiendaOn.borrarUsu(cedula);
 		System.out.println(cedula);

@@ -56,9 +56,6 @@ public class CategoriaDAO {
 		String jpql = "SELECT c FROM Categoria c";
 		Query q = em.createQuery(jpql, Categoria.class);
 		List<Categoria> categorias = q.getResultList();
-		for (Categoria categoria : categorias) {
-			categoria.setPeliculas(new ArrayList<Pelicula>());
-		}
 		return categorias;
 	}
 	
