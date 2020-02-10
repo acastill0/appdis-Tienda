@@ -467,7 +467,6 @@ public class TiendaON {
 			p.setTitulo(det.getPelicula().getTitulo());
 			p.setImagen(det.getPelicula().getImagen());
 			resultado.add(p);
-
 			break;
 		}
 		return resultado;
